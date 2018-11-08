@@ -11,6 +11,7 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
+    // なぜかこのファイルを削除するとmigrateがうまくいくからsqlエラーが出る場合はこのファイルを一時的にゴミ箱に写してmigrateする
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {

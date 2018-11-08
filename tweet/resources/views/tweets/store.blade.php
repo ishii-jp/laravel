@@ -1,13 +1,14 @@
 @extends('layouts.layout')
 
 @php
-    $title = 'トップ画面';
+    $title = 'Store画面';
 @endphp
 
 @section('title', $title)
 
 @section('content')
-    <p>簡易的ツイッター</p>
+    <p>ツイート完了しました。</p>
+    <p><a href="/tweet">ホームはこちら</a></p>
 @endsection
 
 @section('footer')

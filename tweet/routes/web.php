@@ -15,8 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 // トップ画面
-Route::resource('/tweet', 'TweetsController');
-
+Route::resource('tweet', 'TweetsController');
 
 Auth::routes();
 
