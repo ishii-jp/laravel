@@ -10,4 +10,9 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    // 全ての画面でアクセスした時にログインしていなければログイン画面リダイレクトさせます。s
+    public function __construct(){
+        $this->middleware('auth');
+    }
 }

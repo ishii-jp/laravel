@@ -8,6 +8,7 @@
 
 @section('content')
     <p>みんなの投稿</p>
+    <p><a href="/tweet/create">投稿する</a></p>
     <table>
             <tr>
                 <th>投稿者</th><th>イメージ</th><th>本文</th>
@@ -19,8 +20,7 @@
                 <td>{{ $tweet->text }}</td>
             </tr>
             @endforeach
-        </table>
-        <p><a href="/tweet/create">投稿する</a></p>
+    </table>
 @endsection
 
 @section('footer')

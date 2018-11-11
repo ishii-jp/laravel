@@ -26,9 +26,7 @@ class TweetsController extends Controller
     }
 
     public function show (Request $request){
-        if (Auth::check()){
-            $user = Auth::user();
-        }
+        $user = Auth::user();
         $tweets = Tweet::where('user_id',$request->tweet)->get();
         return view('tweets.show', ['tweets' => $tweets, 'user' => $user]);
     }

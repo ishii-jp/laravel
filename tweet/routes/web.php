@@ -14,9 +14,17 @@
 Route::get('/', function () {
     return view('welcome');
 });
-// トップ画面
+// resourceで記述するとgetで同じルーティングを書いても反映されないっぽい？
+// Route::get('tweet', 'TweetsController@index')->middleware('auth');
+
 Route::resource('tweet', 'TweetsController');
 
+// ユーザー認証のルーティング
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+// ログアウト
+Route::get('/logout', function(){
+    Auth::logout();
+    return redirect('/');
+});
