@@ -8,14 +8,14 @@
     <body>
         <h1>@yield('title')</h1>
         <div>
-          <ul>
+          <p><a href="/tweet">トップページ</a></p>
               @if (Auth::check())
-                  <li><a href="/logout">ログアウト</a></li> 
+                  <span><a href="/logout">ログアウト</a></span> 
+                  <span><a href="/tweet/{{ Auth::user()->id }}">マイページ</a></span>
               @else
-                  <li><a href="/login">ログイン</a></li>
-                  <li><a href="/register">新規登録</a></li>
+                  <span><a href="/login">ログイン</a></span>
+                  <span><a href="/register">新規登録</a></span>
               @endif
-          </ul>
         </div>
         @yield('content')
         @yield('footer')
