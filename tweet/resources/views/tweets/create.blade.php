@@ -21,5 +21,5 @@
 @endsection
 
 @section('footer')
-    copyright ishii 2018
+    <br>copyright ishii 2018
 @endsection

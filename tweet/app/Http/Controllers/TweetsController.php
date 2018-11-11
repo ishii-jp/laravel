@@ -10,8 +10,9 @@ use App\Tweet;
 
 class TweetsController extends Controller
 {
-    public function index(){
-        return view('tweets.index');
+    public function index(Request $request){
+        $tweets = Tweet::all();
+        return view('tweets.index', ['tweets' => $tweets]);
     }
 
     public function create(Request $request){
@@ -20,6 +21,15 @@ class TweetsController extends Controller
 
     public function store(Request $request){
         Tweet::create(array('user_id' => Auth::user()->id, 'image' => $request->image, 'text' => $request->text));
-        return view('tweets.store');
+        $user = Auth::user();
+        return view('tweets.store', ['user' => $user]);
+    }
+
+    public function show (Request $request){
+        if (Auth::check()){
+            $user = Auth::user();
+        }
+        $tweets = Tweet::where('user_id',$request->tweet)->get();
+        return view('tweets.show', ['tweets' => $tweets, 'user' => $user]);
     }
 }

@@ -1,14 +1,14 @@
 @extends('layouts.layout')
 
 @php
-    $title = 'トップ画面';
+    $title = 'ツイート一覧画面';
 @endphp
 
 @section('title', $title)
 
 @section('content')
-    <p>みんなの投稿</p>
-    <table>
+    <p>{{ $user->name }}さんの投稿一覧</p>
+        <table>
             <tr>
                 <th>投稿者</th><th>イメージ</th><th>本文</th>
             </tr>
@@ -20,7 +20,6 @@
             </tr>
             @endforeach
         </table>
-        <p><a href="/tweet/create">投稿する</a></p>
 @endsection
 
 @section('footer')
