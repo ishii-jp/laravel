@@ -19,6 +19,9 @@ Route::get('/', function () {
 
 Route::resource('tweet', 'TweetsController');
 
+// マイページ
+Route::get('/mypage', 'MyPageController@index');
+
 // ユーザー認証のルーティング
 Auth::routes();
 

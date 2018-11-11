@@ -11,7 +11,7 @@
           <p><a href="/tweet">トップページ</a></p>
               @if (Auth::check())
                   <span><a href="/logout">ログアウト</a></span> 
-                  <span><a href="/tweet/{{ Auth::user()->id }}">マイページ</a></span>
+                  <span><a href="/mypage">マイページ</a></span>
               @else
                   <span><a href="/login">ログイン</a></span>
                   <span><a href="/register">新規登録</a></span>
