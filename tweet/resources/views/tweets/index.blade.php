@@ -11,13 +11,14 @@
     <p><a href="/tweet/create">投稿する</a></p>
     <table>
             <tr>
-                <th>投稿者</th><th>イメージ</th><th>本文</th>
+                <th>投稿者</th><th>イメージ</th><th>本文</th><th>投稿日時</th>
             </tr>
             @foreach ($tweets as $tweet)
             <tr>
                 <td>{{ $tweet->user->name }}</td>
                 <td>{{ $tweet->image }}</td>
                 <td>{{ $tweet->text }}</td>
+                <td>{{ $tweet->updated_at }}</td>
             </tr>
             @endforeach
     </table>

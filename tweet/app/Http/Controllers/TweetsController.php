@@ -27,7 +27,20 @@ class TweetsController extends Controller
 
     public function show (Request $request){
         $user = Auth::user();
-        $tweets = Tweet::where('user_id',$request->tweet)->get();
+        $tweets = Tweet::where('user_id',$request->tweet)->orderBy('id','DESC')->get();
         return view('tweets.show', ['tweets' => $tweets, 'user' => $user]);
+    }
+
+    public function edit(Request $request){
+        $tweet = Tweet::where('id', $request->tweet)->first();
+        return view('tweets.edit',['tweet' => $tweet]);
+    }
+
+    public function update(Request $request){
+        $tweet = Tweet::find($request->tweet);
+        $tweet->image = $request->image;
+        $tweet->text = $request->text;
+        $tweet->save();
+        return view('tweets.index');
     }
 }
