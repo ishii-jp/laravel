@@ -48,6 +48,9 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         // ログインイベントを起動させ、最終ログイン日時を入力する
-        event(new Logined());
+        // event(new Logined());
+        // なぜかイベントリスナーを使ったやり方だと値がテーブルに格納されないのでコントローラに直で書いたら最終ログイン日時が入力できました。
+        $user->last_login_at = now();
+        $user->save();
     }
 }
