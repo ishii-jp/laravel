@@ -10,7 +10,7 @@ use App\Tweet;
 
 class TweetsController extends Controller
 {
-    public function index(Request $request){
+    public function index(){
         $tweets = Tweet::all();
         return view('tweets.index', ['tweets' => $tweets]);
     }
@@ -25,22 +25,19 @@ class TweetsController extends Controller
         return view('tweets.store', ['user' => $user]);
     }
 
-    public function show (Request $request){
+    public function show($id, Request $request){
         $user = Auth::user();
-        $tweets = Tweet::where('user_id',$request->tweet)->orderBy('id','DESC')->get();
+        $tweets = Tweet::where('user_id',$id)->orderBy('id','DESC')->get();
         return view('tweets.show', ['tweets' => $tweets, 'user' => $user]);
     }
 
-    public function edit(Request $request){
-        $tweet = Tweet::where('id', $request->tweet)->first();
+    public function edit($id, Request $request){
+        $tweet = Tweet::where('id', $id)->first();
         return view('tweets.edit',['tweet' => $tweet]);
     }
 
-    public function update(Request $request){
-        $tweet = Tweet::find($request->tweet);
-        $tweet->image = $request->image;
-        $tweet->text = $request->text;
-        $tweet->save();
-        return view('tweets.index');
+    public function update($id, Request $request){
+        Tweet::find($id)->update(array('image' => $request->image, 'text' => $request->text));
+        return view('tweets.update');
     }
 }

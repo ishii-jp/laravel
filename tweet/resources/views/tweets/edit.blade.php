@@ -10,11 +10,11 @@
     <div>
         <div>
         <h3>編集する</h3>
-        <form action="/tweet/{tweet}" method="put">
+        {{ Form::open(['url' => "tweet/$tweet->id", 'method' => 'PATCH']) }}
             <input placeholder="Image Url" type="text" name="image" value="{{ $tweet->image }}">
-            <textarea cols="30" name="text" placeholder="text" rows="10" value="{{ $tweet->text }}"></textarea>
+            <textarea cols="30" name="text" placeholder="投稿本文" rows="10">{{ $tweet->text }}</textarea>
             <input type="submit" value="編集">
-        </form>
+        {{ Form::close() }}
         </div>
     </div>
 @endsection
