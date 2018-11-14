@@ -17,7 +17,11 @@ Route::get('/', function () {
 // resourceで記述するとgetで同じルーティングを書いても反映されないっぽい？
 // Route::get('tweet', 'TweetsController@index')->middleware('auth');
 
-Route::resource('tweet', 'TweetsController');
+// グループ化したルーティング
+Route::middleware('auth')->group(function(){
+    Route::resource('tweet', 'TweetsController');
+});
+
 
 // マイページ
 Route::get('/mypage', 'MyPageController@index');
