@@ -18,7 +18,15 @@
                 <td>{{ $tweet->image }}</td>
                 <td>{{ $tweet->text }}</td>
                 <td>{{ $tweet->updated_at }}</td>
-                <td><span><a href="/tweet/{{ $tweet->id }}/edit">編集</a></span></td>
+                <td><span><a href="/tweet/{{ $tweet->id }}/edit">編集　</a></span></td>
+                
+                <!-- <form action="/tweet/{{ $tweet->id }}" method="post"> -->
+                {{ Form::open(['url' => "/tweet/$tweet->id"]) }}
+                    {{ method_field('delete') }}
+                    <!-- <td><span><a href="/tweet/{{ $tweet->id }}/delete">削除　</a></span></td> -->
+                    <td>{{ Form::submit('削除')}}</td>
+                {{ Form::close() }}
+                <!-- </form> -->
             </tr>
             @endforeach
         </table>

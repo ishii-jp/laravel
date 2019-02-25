@@ -25,6 +25,10 @@ Route::middleware('auth')->group(function(){
 
 // マイページ
 Route::get('/mypage', 'MyPageController@index');
+Route::get('/mypage/userinfo', 'MyPageController@userInfo');
+Route::get('/mypage/edit', 'MyPageController@edit');
+Route::post('/mypage/store', 'MyPageController@store');
+Route::get('/mypage/passwordEdit', 'MyPageController@passwordEdit');
 
 // ユーザー認証のルーティング
 Auth::routes();

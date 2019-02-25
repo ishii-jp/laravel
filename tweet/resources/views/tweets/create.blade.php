@@ -9,12 +9,14 @@
 @section('content')
     <div>
         <div>
-        {{ Form::open(['url' => '/tweet', 'method' => 'post']) }}
+        {{ Form::open(['url' => '/tweet', 'method' => 'post', 'files' => true]) }}
             <h3>投稿する</h3>
             <!-- <input placeholder="nickname" type="text" name="name"> -->
-            <input placeholder="Image Url" type="text" name="image" value="{{ old('image') }}">
-            <textarea cols="30" name="text" placeholder="text" rows="10" value="{{ old('text') }}"></textarea>
-            <input type="submit" value="SENT">
+            {{ Form::text('image', old('image'), ['placeholder' => 'image']) }}
+            <!-- 画像をアップロードするタグ -->
+            <!-- {{Form::file('Image')}} -->
+            {{ Form::textarea('text', old('text'), ['placeholder' => 'text']) }}
+            {{ Form::submit() }}
         {{ Form::close() }}
         </div>
     </div>

@@ -9,8 +9,7 @@
 @section('content')
     <p>{{ $user->name }}さんこんにちは。</p>
     <p><a href="/tweet/{{ $user->id }}">自分の投稿一覧</a></p>
-    <!-- ユーザー情報はまだ機能実装してません -->
-    <p><a href="">ユーザー情報</a></p>
+    <p><a href="/mypage/userinfo/">ユーザー情報</a></p>
     
 @endsection
 
