@@ -29,6 +29,7 @@ Route::get('/mypage/userinfo', 'MyPageController@userInfo');
 Route::get('/mypage/edit', 'MyPageController@edit');
 Route::post('/mypage/store', 'MyPageController@store');
 Route::get('/mypage/passwordEdit', 'MyPageController@passwordEdit');
+Route::post('/mypage/passwordStore', 'MyPageController@passwordStore');
 
 // ユーザー認証のルーティング
 Auth::routes();
