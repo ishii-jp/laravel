@@ -29,4 +29,13 @@ class MyPageRequest extends FormRequest
             'password_confirmation' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'password.required' => 'パスワードを入力して下さい',
+            'password.confirmed' => '新しいパスワードが間違っています',
+            'password_confirmation.required' => '新しいパスワード(確認用)を入力して下さい'
+        ];
+    }
 }

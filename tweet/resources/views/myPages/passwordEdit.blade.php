@@ -9,9 +9,12 @@
 @section('content')
     <div>
         <div>
-        @isset($msg)
-            {{ $msg }}
-        @endisset
+        @if(Session::has('msg'))
+            メッセージ：{{ session('msg') }}
+        @endif
+        @if ($errors->has('exception_message'))
+            <strong>{{ $errors->first('exception_message') }}</strong><br>
+        @endif
         <h3>編集する</h3>
         {{ Form::open(['url' => "mypage/passwordStore"]) }}
             {{ Form::label('new_password', '現在のパスワード') }}
@@ -21,7 +24,7 @@
             @if ($errors->has('password'))
                 <strong>{{ $errors->first('password') }}</strong><br>
             @endif
-            {{ Form::label('password_confirmation', '確認用パスワード') }}
+            {{ Form::label('password_confirmation', '新しいパスワード(確認用)') }}
             {{ Form::password('password_confirmation') }}<br>
             @if ($errors->has('password_confirmation'))
                 <strong>{{ $errors->first('password_confirmation') }}</strong><br>

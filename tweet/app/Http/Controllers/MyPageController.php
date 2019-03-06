@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MyPageRequest;
 use Hash;
+use DB;
+use App\Libs\Library;
 
 class MyPageController extends Controller
 {
@@ -46,15 +48,21 @@ class MyPageController extends Controller
         $password = $request->new_password;
         if (Hash::check($password, $hashedPassword)){
             if ($request->password == $request->password_confirmation){
-                $encrypted = Hash::make($request->password);
-                $user->password = $encrypted;
-                $user->save();
+                try {
+                    $encrypted = Hash::make($request->password);
+                    $user->password = $encrypted;
+                    DB::commit();
+                    $user->save();
+                } catch (PDOException $e){
+                    DB::rollBack();
+                    Library::redirectWithErrors('passwordEdit', $e->getMessage());
+                }
                 return redirect('/mypage/userinfo/');
             } else {
                 return redirect('/mypage/passwordEdit');
             }
         } else {
-            return redirect('/mypage/passwordEdit')->with('msg', '現在のパスワードが誤っています。');
+            return redirect('/mypage/passwordEdit')->with('msg', '登録されていないパスワードです');
         }
     }
 
