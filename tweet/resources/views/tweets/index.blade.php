@@ -15,7 +15,7 @@
             </tr>
             @foreach ($tweets as $tweet)
             <tr>
-                <td>{{ $tweet->user->name }}</td>
+                <td><a href="/mypage/profile/{{ $tweet->user->id }}">{{ $tweet->user->name }}</a></td>
                 <td>{{ $tweet->image }}</td>
                 <td>{{ $tweet->text }}</td>
                 <td>{{ $tweet->updated_at }}</td>

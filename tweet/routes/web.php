@@ -30,6 +30,7 @@ Route::get('/mypage/edit', 'MyPageController@edit');
 Route::post('/mypage/store', 'MyPageController@store');
 Route::get('/mypage/passwordEdit', 'MyPageController@passwordEdit')->name('passwordEdit');
 Route::post('/mypage/passwordStore', 'MyPageController@passwordStore');
+Route::get('/mypage/profile/{userId}', 'MyPageController@profile')->name('profile');
 
 // ユーザー認証のルーティング
 Auth::routes();

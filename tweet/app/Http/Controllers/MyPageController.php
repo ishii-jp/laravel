@@ -8,6 +8,7 @@ use App\Http\Requests\MyPageRequest;
 use Hash;
 use DB;
 use App\Libs\Library;
+use App\User;
 
 class MyPageController extends Controller
 {
@@ -78,5 +79,12 @@ class MyPageController extends Controller
         }
 
         return redirect('/mypage/userinfo/');
+    }
+
+    public function profile($userId)
+    {
+        // $user = $this->getUser();
+        $user = User::find($userId);
+        return view('mypages.profileIndex', ['user' => $user]);
     }
 }

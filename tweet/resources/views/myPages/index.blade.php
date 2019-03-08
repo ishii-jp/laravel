@@ -10,6 +10,7 @@
     <p>{{ $user->name }}さんこんにちは。</p>
     <p><a href="/tweet/{{ $user->id }}">自分の投稿一覧</a></p>
     <p><a href="/mypage/userinfo/">ユーザー情報</a></p>
+    <p><a href="/mypage/profile/{{ $user->id }}">プロフィール</a></p>
     
 @endsection
 
