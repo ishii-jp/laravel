@@ -86,10 +86,6 @@ class MyPageController extends Controller
         // 下記の書き方だとsqlエラー (Unknown column '_token')となってしまいました。
         // $values = $request->all();
         $values = $request->except(['_token']);
-        // dd($values);
-        // if(!empty($values)){
-            // $userInfo->$key = $value;
-            // $userInfo->save();
             UserInfo::updateOrCreate([
                 'user_id' => $values['user_id'],
                 'name' => $values['name'],
@@ -100,9 +96,6 @@ class MyPageController extends Controller
                 'hobby' => $values['hobby'],
                 'residence' => $values['residence'],
             ]);
-            // $user->name = $data['name'];
-            // $user->email = $data['email'];
-            // $user->save();
         // }
 
         return redirect('/mypage/userinfo/');
