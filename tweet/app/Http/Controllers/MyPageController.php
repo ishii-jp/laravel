@@ -9,6 +9,7 @@ use Hash;
 use DB;
 use App\Libs\Library;
 use App\User;
+use App\UserInfo;
 
 class MyPageController extends Controller
 {
@@ -16,6 +17,11 @@ class MyPageController extends Controller
     {
         $user = Auth::user();
         return $user;
+    }
+
+    public function getUserInfo($userId){
+        $userInfo = UserInfo::find($userId);
+        return $userInfo;
     }
 
     public function index()
@@ -26,14 +32,20 @@ class MyPageController extends Controller
 
     public function userInfo()
     {
+        // $user = $this->getUser();
+        // $userInfo = UserInfo::find($user->id);
         $user = $this->getUser();
-        return view('myPages.userInfo', ['user' => $user]);
+        $userInfo = $this->getUserInfo($user->id);
+        $param = ['user' => $user, 'userInfo' => $userInfo];
+        return view('myPages.userInfo', $param);
     }
 
     public function edit()
     {
         $user = $this->getUser();
-        return view('myPages.edit', ['user' => $user]);
+        $userInfo = UserInfo::find($user->id);
+        $param = ['user' => $user, 'userInfo' => $userInfo];
+        return view('myPages.edit', $param);
     }
 
     public function passwordEdit()
@@ -69,14 +81,29 @@ class MyPageController extends Controller
 
     public function store(Request $request)
     {
-        $user = $this->getUser();
-        $data = $request->all();
-        // dd($data);
-        if(isset($data)){
-            $user->name = $data['name'];
-            $user->email = $data['email'];
-            $user->save();
-        }
+        // $user = $this->getUser();
+        $userInfo = UserInfo::all();
+        // 下記の書き方だとsqlエラー (Unknown column '_token')となってしまいました。
+        // $values = $request->all();
+        $values = $request->except(['_token']);
+        // dd($values);
+        // if(!empty($values)){
+            // $userInfo->$key = $value;
+            // $userInfo->save();
+            UserInfo::updateOrCreate([
+                'user_id' => $values['user_id'],
+                'name' => $values['name'],
+                'email' => $values['email']
+            ],[
+                'profile' => $values['profile'],
+                'blood_type' => $values['blood_type'],
+                'hobby' => $values['hobby'],
+                'residence' => $values['residence'],
+            ]);
+            // $user->name = $data['name'];
+            // $user->email = $data['email'];
+            // $user->save();
+        // }
 
         return redirect('/mypage/userinfo/');
     }
@@ -84,7 +111,7 @@ class MyPageController extends Controller
     public function profile($userId)
     {
         // $user = $this->getUser();
-        $user = User::find($userId);
-        return view('mypages.profileIndex', ['user' => $user]);
+        $userInfo = UserInfo::find($userId);
+        return view('mypages.profileIndex', ['userInfo' => $userInfo]);
     }
 }

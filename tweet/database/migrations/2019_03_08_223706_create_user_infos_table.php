@@ -16,9 +16,12 @@ class CreateUserInfosTable extends Migration
         Schema::create('user_infos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->text('profile');
-            $table->string('blood_type, 20');
-            $table->text('hobby');
+            $table->text('name');
+            $table->text('email');
+            $table->text('profile')->nullable();
+            $table->string('blood_type', 10)->nullable();
+            $table->text('hobby')->nullable();
+            $table->text('residence', 20)->nullable();
             $table->timestamps();
         });
     }
