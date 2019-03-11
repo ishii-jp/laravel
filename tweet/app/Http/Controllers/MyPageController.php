@@ -106,8 +106,9 @@ class MyPageController extends Controller
 
     public function profile($userId)
     {
-        // $user = $this->getUser();
+        $user = User::find($userId);
         $userInfo = UserInfo::find($userId);
-        return view('mypages.profileIndex', ['userInfo' => $userInfo]);
+        $param = ['user' => $user, 'userInfo' => $userInfo];
+        return view('mypages.profileIndex', $param);
     }
 }
