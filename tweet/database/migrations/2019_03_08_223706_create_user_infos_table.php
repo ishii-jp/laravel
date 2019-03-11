@@ -18,6 +18,9 @@ class CreateUserInfosTable extends Migration
             $table->integer('user_id');
             $table->text('name');
             $table->text('email');
+            $table->integer('year')->nullable();
+            $table->integer('month')->nullable();
+            $table->integer('day')->nullable();
             $table->text('profile')->nullable();
             $table->string('blood_type', 10)->nullable();
             $table->text('hobby')->nullable();
