@@ -9,6 +9,7 @@
 @section('content')
     <div>
         <div>
+        @php $today = \Carbon\Carbon::now(); @endphp
         {{ Form::open(['url' => 'mypage/store']) }}
             <table>
                 <tr>
@@ -26,15 +27,15 @@
                 <tr><td>生年月日</td></tr>
                 <tr>
                     <td>{{ Form::label('year', '年') }}</td>
-                    <td>{{ Form::selectRange('year', 1900, 2019) }}年</td>
+                    <td>{{ Form::selectRange('year', 1900, 2019, isset($userInfo->year)? $userInfo->year : $today->year) }}年</td>
                 </tr>
                 <tr>
                     <td>{{ Form::label('month', '月') }}</td>
-                    <td>{{ Form::selectRange('month', 1, 12) }}月</td>
+                    <td>{{ Form::selectRange('month', 1, 12, isset($userInfo->month)? $userInfo->month : $today->month) }}月</td>
                 </tr>
                 <tr>
                     <td>{{ Form::label('day', '日') }}</td>
-                    <td>{{ Form::selectRange('day', 1, 31) }}日</td>
+                    <td>{{ Form::selectRange('day', 1, 31, isset($userInfo->day)? $userInfo->day : $today->day) }}日</td>
                 </tr>
                 <tr>
                     <td>{{ Form::label('residence', '居住地') }}</td>

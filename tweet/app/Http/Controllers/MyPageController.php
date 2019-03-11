@@ -91,6 +91,9 @@ class MyPageController extends Controller
                 'name' => $values['name'],
                 'email' => $values['email']
             ],[
+                'year' => $values['year'],
+                'month' => $values['month'],
+                'day' => $values['day'],
                 'profile' => $values['profile'],
                 'blood_type' => $values['blood_type'],
                 'hobby' => $values['hobby'],
