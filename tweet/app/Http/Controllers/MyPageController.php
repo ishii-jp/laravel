@@ -20,8 +20,10 @@ class MyPageController extends Controller
     }
 
     public function getUserInfo($userId){
+        $user = User::find($userId);
         $userInfo = UserInfo::find($userId);
-        return $userInfo;
+        $param = ['user' => $user, 'userInfo' => $userInfo];
+        return $param;
     }
 
     public function index()
@@ -32,19 +34,13 @@ class MyPageController extends Controller
 
     public function userInfo()
     {
-        // $user = $this->getUser();
-        // $userInfo = UserInfo::find($user->id);
-        $user = $this->getUser();
-        $userInfo = $this->getUserInfo($user->id);
-        $param = ['user' => $user, 'userInfo' => $userInfo];
+        $param = $this->getUserInfo(Auth::user()->id);
         return view('myPages.userInfo', $param);
     }
 
     public function edit()
     {
-        $user = $this->getUser();
-        $userInfo = UserInfo::find($user->id);
-        $param = ['user' => $user, 'userInfo' => $userInfo];
+        $param = $this->getUserInfo(Auth::user()->id);
         return view('myPages.edit', $param);
     }
 
@@ -86,29 +82,26 @@ class MyPageController extends Controller
         // 下記の書き方だとsqlエラー (Unknown column '_token')となってしまいました。
         // $values = $request->all();
         $values = $request->except(['_token']);
-            UserInfo::updateOrCreate([
-                'user_id' => $values['user_id'],
-                'name' => $values['name'],
-                'email' => $values['email']
-            ],[
-                'year' => $values['year'],
-                'month' => $values['month'],
-                'day' => $values['day'],
-                'profile' => $values['profile'],
-                'blood_type' => $values['blood_type'],
-                'hobby' => $values['hobby'],
-                'residence' => $values['residence'],
-            ]);
-        // }
+        UserInfo::updateOrCreate([
+            'user_id' => $values['user_id'],
+            'name' => $values['name'],
+            'email' => $values['email']
+        ],[
+            'year' => $values['year'],
+            'month' => $values['month'],
+            'day' => $values['day'],
+            'profile' => $values['profile'],
+            'blood_type' => $values['blood_type'],
+            'hobby' => $values['hobby'],
+            'residence' => $values['residence'],
+        ]);
 
         return redirect('/mypage/userinfo/');
     }
 
     public function profile($userId)
     {
-        $user = User::find($userId);
-        $userInfo = UserInfo::find($userId);
-        $param = ['user' => $user, 'userInfo' => $userInfo];
+        $param = $this->getUserInfo($userId);
         return view('mypages.profileIndex', $param);
     }
 }
