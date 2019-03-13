@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MyPageRequest;
+use App\Http\Requests\MyPageEditRequest;
 use Hash;
 use DB;
 use App\Libs\Library;
@@ -75,7 +76,7 @@ class MyPageController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(MyPageEditRequest $request)
     {
         // $user = $this->getUser();
         $userInfo = UserInfo::all();

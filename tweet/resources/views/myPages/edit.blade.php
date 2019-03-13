@@ -10,15 +10,25 @@
     <div>
         <div>
         @php $today = \Carbon\Carbon::now(); @endphp
+
+        @if ($errors->has('*'))
+            <p>※入力に不備がありますのでご確認ください。</p>
+        @endif
         {{ Form::open(['url' => 'mypage/store']) }}
             <table>
                 <tr>
                     <td>{{ Form::label('name','名前') }}</td>
                     <td>{{ Form::text('name', old('name', isset($userInfo->name)? $userInfo->name : '')) }}</td>
+                    @if ($errors->has('name'))
+                        {{ $errors->first('name') }}
+                    @endif
                 </tr>
                 <tr>
                     <td>{{ Form::label('email','メールアドレス') }}</td>
                     <td>{{ Form::text('email', old('email', isset($userInfo->email)? $userInfo->email : '')) }}</td>
+                    @if ($errors->has('email'))
+                        {{ $errors->first('email') }}
+                    @endif
                 </tr>
                 <tr>
                     <td>{{ Form::label('profile', '自己紹介') }}</td>
