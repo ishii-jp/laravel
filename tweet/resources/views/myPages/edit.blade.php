@@ -18,14 +18,14 @@
             <table>
                 <tr>
                     <td>{{ Form::label('name','名前') }}</td>
-                    <td>{{ Form::text('name', old('name', isset($userInfo->name)? $userInfo->name : '')) }}</td>
+                    <td>{{ Form::text('name', old('name', isset($user->name)? $user->name : '')) }}</td>
                     @if ($errors->has('name'))
                         {{ $errors->first('name') }}
                     @endif
                 </tr>
                 <tr>
                     <td>{{ Form::label('email','メールアドレス') }}</td>
-                    <td>{{ Form::text('email', old('email', isset($userInfo->email)? $userInfo->email : '')) }}</td>
+                    <td>{{ Form::text('email', old('email', isset($user->email)? $user->email : '')) }}</td>
                     @if ($errors->has('email'))
                         {{ $errors->first('email') }}
                     @endif

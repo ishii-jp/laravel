@@ -22,7 +22,7 @@ class MyPageController extends Controller
 
     public function getUserInfo($userId){
         $user = User::find($userId);
-        $userInfo = UserInfo::find($userId);
+        $userInfo = UserInfo::where('user_id', $userId)->first();
         $param = ['user' => $user, 'userInfo' => $userInfo];
         return $param;
     }
