@@ -20,17 +20,19 @@ Route::get('/', function () {
 // グループ化したルーティング
 Route::middleware('auth')->group(function(){
     Route::resource('tweet', 'TweetsController');
+    // マイページ
+    Route::get('/mypage', 'MyPageController@index');
+    Route::get('/mypage/userinfo', 'MyPageController@userInfo');
+    Route::get('/mypage/edit', 'MyPageController@edit');
+    Route::post('/mypage/store', 'MyPageController@store');
+    Route::get('/mypage/passwordEdit', 'MyPageController@passwordEdit')->name('passwordEdit');
+    Route::post('/mypage/passwordStore', 'MyPageController@passwordStore');
+    Route::get('/mypage/profile/{userId}', 'MyPageController@profile')->name('profile');
+    Route::get('/mypage/profile/image', 'MyPageController@profileImage')->name('profileImage');
 });
 
 
-// マイページ
-Route::get('/mypage', 'MyPageController@index');
-Route::get('/mypage/userinfo', 'MyPageController@userInfo');
-Route::get('/mypage/edit', 'MyPageController@edit');
-Route::post('/mypage/store', 'MyPageController@store');
-Route::get('/mypage/passwordEdit', 'MyPageController@passwordEdit')->name('passwordEdit');
-Route::post('/mypage/passwordStore', 'MyPageController@passwordStore');
-Route::get('/mypage/profile/{userId}', 'MyPageController@profile')->name('profile');
+
 
 // ユーザー認証のルーティング
 Auth::routes();

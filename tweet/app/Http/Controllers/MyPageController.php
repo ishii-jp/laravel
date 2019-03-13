@@ -105,4 +105,10 @@ class MyPageController extends Controller
         $param = $this->getUserInfo($userId);
         return view('mypages.profileIndex', $param);
     }
+
+    public function profileImage()
+    {
+        $user = $this->getUser();
+        return view('myPages.profileImageEdit', $user);
+    }
 }
