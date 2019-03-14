@@ -22,9 +22,9 @@
         {{ $errors->first('file') }}
     @endif
 
-    @if ($userInfo->avatar_filename)
-    <img id="profile_edit_img" src="{{ asset('storage/avatar/'. $userInfo->avatar_filename) }}" alt="avatar" />
-    @endif
+    @isset($userInfo->avatar_filename)
+        <img id="profile_edit_img" src="{{ asset('storage/avatar/'. $userInfo->avatar_filename) }}" alt="avatar" />
+    @endisset
     {{ Form::open(['url' => '/mypage/profile/image', 'files' => true])}}
         {{ Form::label('file', '画像アップロード', ['class' => 'control-label']) }}
         {{ Form::file('file') }}

@@ -11,9 +11,9 @@
 @section('title', $title)
 
 @section('content')
-    @if ($userInfo->avatar_filename)
+@isset($userInfo->avatar_filename)
         <img id="profile_img" src="{{ asset('storage/avatar/'. $userInfo->avatar_filename) }}" alt="avatar" />
-    @endif
+    @endisset
     <span>最後にログインした日時　</span>{{ $user->last_login_at }}<br>
     @include('myPages.profileTable')
     <a href="/mypage/profile/image">プロフィール画像の登録/変更</a><br>

@@ -12,9 +12,9 @@
 
 @section('content')
     <!-- ユーザーネームの横にプロフィール画像を入れたい -->
-    @if ($userInfo->avatar_filename)
+    @isset($userInfo->avatar_filename)
         <img id="profile_img" src="{{ asset('storage/avatar/'. $userInfo->avatar_filename) }}" alt="avatar" />
-    @endif
+    @endisset
     @include('myPages.profileTable')
 @endsection
 
