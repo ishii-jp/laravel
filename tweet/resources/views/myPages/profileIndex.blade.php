@@ -11,7 +11,6 @@
 @section('title', $title)
 
 @section('content')
-    <!-- ユーザーネームの横にプロフィール画像を入れたい -->
     @isset($userInfo->avatar_filename)
         <img id="profile_img" src="{{ asset('storage/avatar/'. $userInfo->avatar_filename) }}" alt="avatar" />
     @endisset

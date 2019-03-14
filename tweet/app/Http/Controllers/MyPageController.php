@@ -79,7 +79,6 @@ class MyPageController extends Controller
 
     public function store(MyPageEditRequest $request)
     {
-        // $user = $this->getUser();
         $userInfo = UserInfo::all();
         // 下記の書き方だとsqlエラー (Unknown column '_token')となってしまいました。
         // $values = $request->all();
@@ -115,17 +114,20 @@ class MyPageController extends Controller
 
     public function profileImageStore(ProfileImageReauest $request)
     {
-        $param = $this->getUserInfo(Auth::user()->id);
+        $userId = Auth::user()->id;
+        $param = $this->getUserInfo($userId);
 
         $filename = $request->file->store('public/avatar');
 
-        $param['userInfo']->avatar_filename = basename($filename);
-        $param['userInfo']->save();
-
+        if (is_null($param['userInfo'])){
+            UserInfo::create(['avatar_filename' => basename($filename), 'user_id' => $userId]);
+        } else {
+            $param['userInfo']->avatar_filename = basename($filename);
+            $param['userInfo']->save();
+        }
         $param['success'] = '保存しました';
+        
         return view('myPages.profileImageEdit', $param);
+        
     }
-    // ファイルアップロード機能
-    // エラー出力まで実装終わりました。
-    // 今夜登録機能を実装してファイルアップロード機能は完成です。
 }
