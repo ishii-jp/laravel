@@ -4,10 +4,17 @@
     $title = 'プロフィール画面';
 @endphp
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('/css/mypage.css') }}">
+@ensection
+
 @section('title', $title)
 
 @section('content')
     <!-- ユーザーネームの横にプロフィール画像を入れたい -->
+    @if ($userInfo->avatar_filename)
+        <img id="profile_img" src="{{ asset('storage/avatar/'. $userInfo->avatar_filename) }}" alt="avatar" />
+    @endif
     @include('myPages.profileTable')
 @endsection
 

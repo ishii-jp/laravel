@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MyPageRequest;
 use App\Http\Requests\MyPageEditRequest;
+use App\Http\Requests\ProfileImageReauest;
 use Hash;
 use DB;
 use App\Libs\Library;
@@ -108,7 +109,23 @@ class MyPageController extends Controller
 
     public function profileImage()
     {
-        $user = $this->getUser();
-        return view('myPages.profileImageEdit', $user);
+        $param = $this->getUserInfo(Auth::user()->id);
+        return view('myPages.profileImageEdit', $param);
     }
+
+    public function profileImageStore(ProfileImageReauest $request)
+    {
+        $param = $this->getUserInfo(Auth::user()->id);
+
+        $filename = $request->file->store('public/avatar');
+
+        $param['userInfo']->avatar_filename = basename($filename);
+        $param['userInfo']->save();
+
+        $param['success'] = '保存しました';
+        return view('myPages.profileImageEdit', $param);
+    }
+    // ファイルアップロード機能
+    // エラー出力まで実装終わりました。
+    // 今夜登録機能を実装してファイルアップロード機能は完成です。
 }

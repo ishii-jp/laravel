@@ -27,8 +27,9 @@ Route::middleware('auth')->group(function(){
     Route::post('/mypage/store', 'MyPageController@store');
     Route::get('/mypage/passwordEdit', 'MyPageController@passwordEdit')->name('passwordEdit');
     Route::post('/mypage/passwordStore', 'MyPageController@passwordStore');
-    Route::get('/mypage/profile/{userId}', 'MyPageController@profile')->name('profile');
     Route::get('/mypage/profile/image', 'MyPageController@profileImage')->name('profileImage');
+    Route::post('/mypage/profile/image', 'MyPageController@ProfileImageStore')->name('profileImageStore');
+    Route::get('/mypage/profile/{userId}', 'MyPageController@profile')->name('profile');
 });
 
 

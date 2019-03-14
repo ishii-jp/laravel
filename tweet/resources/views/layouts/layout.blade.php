@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>@yield('title')</title>
     <link rel="stylesheet" type="text/css" href="/css/app.css">
+    @yield('css')
   </head>
     <body>
         <h1>@yield('title')</h1>
