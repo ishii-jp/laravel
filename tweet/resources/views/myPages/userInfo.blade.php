@@ -2,7 +2,7 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('/css/mypage.css') }}">
-@ensection
+@endsection
 
 @php
     $title = 'ユーザー情報画面';

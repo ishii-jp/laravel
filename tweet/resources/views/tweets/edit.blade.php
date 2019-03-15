@@ -9,11 +9,13 @@
 @section('content')
     <div>
         <div>
-        <h3>編集する</h3>
-        {{ Form::open(['url' => "tweet/$tweet->id", 'method' => 'PATCH']) }}
-            <input placeholder="Image Url" type="text" name="image" value="{{ $tweet->image }}">
-            <textarea cols="30" name="text" placeholder="投稿本文" rows="10">{{ $tweet->text }}</textarea>
-            <input type="submit" value="編集">
+        {{ Form::open(['url' => '/tweet/$tweet->id', 'method' => 'PATCH', 'files' => true]) }}
+            {{ Form::label('title', 'タイトル') }}
+            {{ Form::text('title', old('title', $tweet->title), ['placeholder' => 'タイトル']) }}
+            {{ Form::label('image', ' 画像アップロード') }}
+            {{Form::file('image')}}
+            {{ Form::textarea('text', old('text', $tweet->text), ['placeholder' => '本文']) }}
+            {{ Form::submit('ツイート') }}
         {{ Form::close() }}
         </div>
     </div>

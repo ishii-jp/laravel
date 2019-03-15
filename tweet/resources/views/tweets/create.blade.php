@@ -10,13 +10,12 @@
     <div>
         <div>
         {{ Form::open(['url' => '/tweet', 'method' => 'post', 'files' => true]) }}
-            <h3>投稿する</h3>
-            <!-- <input placeholder="nickname" type="text" name="name"> -->
-            {{ Form::text('image', old('image'), ['placeholder' => 'image']) }}
-            <!-- 画像をアップロードするタグ -->
-            <!-- {{Form::file('Image')}} -->
-            {{ Form::textarea('text', old('text'), ['placeholder' => 'text']) }}
-            {{ Form::submit() }}
+            {{ Form::label('title', 'タイトル') }}
+            {{ Form::text('title', old('title'), ['placeholder' => 'タイトル']) }}
+            {{ Form::label('image', ' 画像アップロード') }}
+            {{Form::file('image')}}
+            {{ Form::textarea('text', old('text'), ['placeholder' => '本文']) }}
+            {{ Form::submit('ツイート') }}
         {{ Form::close() }}
         </div>
     </div>

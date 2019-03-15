@@ -25,8 +25,17 @@ class TweetsController extends Controller
 
     public function store(Request $request)
     {
-        Tweet::create(array('user_id' => Auth::user()->id, 'image' => $request->image, 'text' => $request->text));
         $user = Auth::user();
+        $image = $request->image;
+        $createArr =['user_id' => $user->id, 'title' => $request->title, 'text' => $request->text];
+
+        if (isset($image)){
+            $filename = $image->store('public/avatar');
+            $imageArr = ['image' => basename($filename)];
+            $createArr = array_merge($createArr, $imageArr);
+        }
+
+        Tweet::create($createArr);
         return view('tweets.store', ['user' => $user]);
     }
 
