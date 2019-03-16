@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Tweet;
+use DB;
+use App\Libs\Library;
 
 class TweetsController extends Controller
 {
@@ -54,9 +56,25 @@ class TweetsController extends Controller
         return view('tweets.edit',['tweet' => $tweet]);
     }
 
-    public function update($id, Request $request)
+    public function update($tweet, Request $request)
     {
-        Tweet::find($id)->update(array('image' => $request->image, 'text' => $request->text));
+        $image = $request->image;
+        $updateArr = ['title' => $request->title, 'text' => $request->text];
+
+        DB::beginTransaction();
+        try{
+            if (isset($image)){
+                $filename = $image->store('public/avatar');
+                $updateArr = array_merge($updateArr,['image' => $filename]);
+            }
+    
+            Tweet::find($tweet)->update($updateArr);
+            DB::commit();
+        } catch(PDOException $e){
+            DB::rollBack();
+            Library::redirectWithErrors("/tweet/$tweet/edit", $e->getMessage());
+        }
+        
         return view('tweets.update');
     }
 

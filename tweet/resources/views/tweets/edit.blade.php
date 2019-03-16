@@ -7,18 +7,16 @@
 @section('title', $title)
 
 @section('content')
-    <div>
-        <div>
-        {{ Form::open(['url' => '/tweet/$tweet->id', 'method' => 'PATCH', 'files' => true]) }}
-            {{ Form::label('title', 'タイトル') }}
-            {{ Form::text('title', old('title', $tweet->title), ['placeholder' => 'タイトル']) }}
-            {{ Form::label('image', ' 画像アップロード') }}
-            {{Form::file('image')}}
-            {{ Form::textarea('text', old('text', $tweet->text), ['placeholder' => '本文']) }}
-            {{ Form::submit('ツイート') }}
-        {{ Form::close() }}
-        </div>
-    </div>
+    {{ Form::open(['url' => "/tweet/$tweet->id", 'method' => 'PATCH', 'files' => true]) }}
+        <table>
+            <tr><th>{{ Form::label('title', 'タイトル') }}</th></tr>
+            <tr><td>{{ Form::text('title', old('title', isset($tweet->title)? $tweet->title : ''), ['placeholder' => 'タイトル']) }}</td></tr>
+            <tr><th>{{ Form::label('image', ' 画像アップロード') }}</th></tr>
+            <tr><td>{{Form::file('image')}}</td></tr>
+            <tr><td>{{ Form::textarea('text', old('text', isset($tweet->text)? $tweet->text : ''), ['placeholder' => '本文']) }}</td></tr>
+        </table>
+        {{ Form::submit('修正') }}
+    {{ Form::close() }}
 @endsection
 
 @section('footer')

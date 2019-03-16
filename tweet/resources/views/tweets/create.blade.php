@@ -8,16 +8,16 @@
 
 @section('content')
     <div>
-        <div>
         {{ Form::open(['url' => '/tweet', 'method' => 'post', 'files' => true]) }}
-            {{ Form::label('title', 'タイトル') }}
-            {{ Form::text('title', old('title'), ['placeholder' => 'タイトル']) }}
-            {{ Form::label('image', ' 画像アップロード') }}
-            {{Form::file('image')}}
-            {{ Form::textarea('text', old('text'), ['placeholder' => '本文']) }}
+            <table>
+                <tr><th>{{ Form::label('title', 'タイトル') }}</th></tr>
+                <tr><td>{{ Form::text('title', old('title'), ['placeholder' => 'タイトル']) }}</td></tr>
+                <tr><th>{{ Form::label('image', ' 画像アップロード') }}</th></tr>
+                <tr><td>{{Form::file('image')}}</td></tr>
+                <tr><td>{{ Form::textarea('text', old('text'), ['placeholder' => '本文']) }}</td></tr>
+            </table>
             {{ Form::submit('ツイート') }}
         {{ Form::close() }}
-        </div>
     </div>
 @endsection
 
