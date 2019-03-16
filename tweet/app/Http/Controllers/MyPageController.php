@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MyPageRequest;
 use App\Http\Requests\MyPageEditRequest;
-use App\Http\Requests\ProfileImageReauest;
+use App\Http\Requests\ProfileImageRequest;
 use Hash;
 use DB;
 use App\Libs\Library;
@@ -112,7 +112,7 @@ class MyPageController extends Controller
         return view('myPages.profileImageEdit', $param);
     }
 
-    public function profileImageStore(ProfileImageReauest $request)
+    public function profileImageStore(ProfileImageRequest $request)
     {
         $userId = Auth::user()->id;
         $param = $this->getUserInfo($userId);

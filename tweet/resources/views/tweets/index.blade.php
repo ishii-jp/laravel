@@ -11,8 +11,8 @@
 @section('title', $title)
 
 @section('content')
-    <p>みんなの投稿</p>
-    <p><a href="/tweet/create">投稿する</a></p>
+    <p>タイムライン</p>
+    <p><a href="/tweet/create">ツイートする</a></p>
     <table>
             <tr>
                 <th>投稿者　</th><th>タイトル　</th><th>本文　</th><th>投稿日時</th>

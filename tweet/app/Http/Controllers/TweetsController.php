@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Tweet;
+use App\TweetImage;
 use DB;
 use App\Libs\Library;
+use App\Http\Requests\ProfileImageRequest;
+use App\Http\Requests\TweetImageRequest;
 
 class TweetsController extends Controller
 {
@@ -16,7 +19,8 @@ class TweetsController extends Controller
         // この書き方でforeachなどで回すと回った分だけクエリーが発生し負荷となる。
         // $tweets = Tweet::orderBy('updated_at', 'DESC')->get();
         // リレーションを用いてコレクションを取得する書き方(N+1問題を解決)
-        $tweets = Tweet::with('user')->orderBy('updated_at', 'DESC')->get();
+        $tweets = Tweet::with('user', 'tweetImages')->orderBy('updated_at', 'DESC')->get();
+        // dd($tweets);
         return view('tweets.index', ['tweets' => $tweets]);
     }
 
@@ -25,19 +29,22 @@ class TweetsController extends Controller
         return view('tweets.create');
     }
 
-    public function store(Request $request)
+    public function store(TweetImageRequest $request)
     {
         $user = Auth::user();
-        $image = $request->image;
+        $images = $request->image;
         $createArr =['user_id' => $user->id, 'title' => $request->title, 'text' => $request->text];
 
-        if (isset($image)){
-            $filename = $image->store('public/avatar');
-            $imageArr = ['image' => basename($filename)];
-            $createArr = array_merge($createArr, $imageArr);
+        $tweetCreateReault = Tweet::create($createArr);
+
+        if (isset($images)){
+            foreach ($images as $image){
+                $filename = $image->store('public/avatar');
+                TweetImage::create(['tweet_id' => $tweetCreateReault->id, 'image' => basename($filename)]);
+            }
         }
 
-        Tweet::create($createArr);
+        
         return view('tweets.store', ['user' => $user]);
     }
 
@@ -85,3 +92,22 @@ class TweetsController extends Controller
         return redirect("/tweet/$user_id");
     }
 }
+
+
+
+
+// public function store(TweetImageRequest $request)
+//     {
+//         $user = Auth::user();
+//         $image = $request->image;
+//         $createArr =['user_id' => $user->id, 'title' => $request->title, 'text' => $request->text];
+
+//         if (isset($image)){
+//             $filename = $image->store('public/avatar');
+//             $imageArr = ['image' => basename($filename)];
+//             $createArr = array_merge($createArr, $imageArr);
+//         }
+
+//         Tweet::create($createArr);
+//         return view('tweets.store', ['user' => $user]);
+//     }
