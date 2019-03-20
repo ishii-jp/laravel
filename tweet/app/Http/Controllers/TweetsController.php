@@ -20,7 +20,6 @@ class TweetsController extends Controller
         // $tweets = Tweet::orderBy('updated_at', 'DESC')->get();
         // リレーションを用いてコレクションを取得する書き方(N+1問題を解決)
         $tweets = Tweet::with('user', 'tweetImages')->orderBy('updated_at', 'DESC')->get();
-        // dd($tweets);
         return view('tweets.index', ['tweets' => $tweets]);
     }
 
@@ -39,6 +38,7 @@ class TweetsController extends Controller
 
         if (isset($images)){
             foreach ($images as $image){
+                // dd($tweetCreateReault);
                 $filename = $image->store('public/avatar');
                 TweetImage::create(['tweet_id' => $tweetCreateReault->id, 'image' => basename($filename)]);
             }

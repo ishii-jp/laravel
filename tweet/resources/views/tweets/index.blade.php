@@ -23,9 +23,11 @@
                 <td>{{ isset($tweet->title)? $tweet->title : '' }}</td>
                 <td>
                     {{ $tweet->text }}
-                    @isset($tweet->image)
-                        <img id="profile_img" src="{{ asset('storage/avatar/'. $tweet->image) }}" alt="avatar" />
-                    @endisset
+                    @foreach ($tweet->tweetImages as $tweetImage)
+                        @isset($tweetImage->image)
+                            <img id="profile_img" src="{{ asset('storage/avatar/'. $tweetImage->image) }}" alt="avatar" />
+                        @endisset
+                    @endforeach
                 </td>
                 
                 <td>{{ $tweet->updated_at }}</td>
