@@ -34,12 +34,18 @@ class TweetsController extends Controller
         $images = $request->image;
         $createArr =['user_id' => $user->id, 'title' => $request->title, 'text' => $request->text];
 
-        $tweetCreateReault = Tweet::create($createArr);
+        DB::beginTransaction();
+        try {
+            $tweetCreateReault = Tweet::create($createArr);
 
-        if (isset($images)){
-            TweetImage::registImage($images, $tweetCreateReault);
+            if (isset($images)){
+                TweetImage::registImage($images, $tweetCreateReault);
+            }
+            DB::commit();
+        } catch(PDOException $e){
+            DB::rollBack();
+            Library::redirectWithErrors('/tweet/create', $e->getMessage());
         }
-
         
         return view('tweets.store', ['user' => $user]);
     }
@@ -82,7 +88,15 @@ class TweetsController extends Controller
     public function destroy($id)
     {
         $user_id = Auth::user()->id;
-        Tweet::destroy($id);
+        DB::beginTransaction();
+        try {
+            Tweet::destroy($id);
+            DB::commit();
+        } catch(PDOException $e){
+            DB::rollBack();
+            Library::redirectWithErrors("/tweet/$user_id", $e->getMessage());
+        }
+        
         return redirect("/tweet/$user_id");
     }
 }

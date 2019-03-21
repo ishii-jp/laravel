@@ -23,6 +23,7 @@ class MyPageController extends Controller
 
     public function getUserInfo($userId){
         $user = User::find($userId);
+        // ここもリレーションで取得したい
         $userInfo = UserInfo::where('user_id', $userId)->first();
         $param = ['user' => $user, 'userInfo' => $userInfo];
         return $param;
@@ -62,8 +63,8 @@ class MyPageController extends Controller
                 try {
                     $encrypted = Hash::make($request->password);
                     $user->password = $encrypted;
-                    DB::commit();
                     $user->save();
+                    DB::commit();
                 } catch (PDOException $e){
                     DB::rollBack();
                     Library::redirectWithErrors('passwordEdit', $e->getMessage());
@@ -83,19 +84,15 @@ class MyPageController extends Controller
         // 下記の書き方だとsqlエラー (Unknown column '_token')となってしまいました。
         // $values = $request->all();
         $values = $request->except(['_token']);
-        UserInfo::updateOrCreate([
-            'user_id' => $values['user_id'],
-            'name' => $values['name'],
-            'email' => $values['email']
-        ],[
-            'year' => $values['year'],
-            'month' => $values['month'],
-            'day' => $values['day'],
-            'profile' => $values['profile'],
-            'blood_type' => $values['blood_type'],
-            'hobby' => $values['hobby'],
-            'residence' => $values['residence'],
-        ]);
+
+        DB::beginTransaction();
+        try {
+            UserInfo::registUserInfo($values);
+            DB::commit();
+        } catch(PDOException $e){
+            DB::rollBack();
+            Library::redirectWithErrors("/mypage/edit", $e->getMessage());
+        }
 
         return redirect('/mypage/userinfo/');
     }
@@ -119,13 +116,20 @@ class MyPageController extends Controller
 
         $filename = $request->file->store('public/avatar');
 
-        if (is_null($param['userInfo'])){
-            UserInfo::create(['avatar_filename' => basename($filename), 'user_id' => $userId]);
-        } else {
-            $param['userInfo']->avatar_filename = basename($filename);
-            $param['userInfo']->save();
+        DB::beginTransaction();
+        try {
+            if (is_null($param['userInfo'])){
+                UserInfo::create(['avatar_filename' => basename($filename), 'user_id' => $userId]);
+            } else {
+                $param['userInfo']->avatar_filename = basename($filename);
+                $param['userInfo']->save();
+            }
+            $param['success'] = '保存しました';
+            DB::commit();
+        } catch(PDOException $e) {
+            DB::rollBack();
+            Library::redirectWithErrors("/mypage/profile/image", $e->getMessage());
         }
-        $param['success'] = '保存しました';
         
         return view('myPages.profileImageEdit', $param);
         
