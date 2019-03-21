@@ -11,7 +11,7 @@ use App\TweetImage;
 use DB;
 use App\Libs\Library;
 use App\Http\Requests\ProfileImageRequest;
-use App\Http\Requests\TweetImageRequest;
+use App\Http\Requests\TweetRequest;
 
 class TweetsController extends Controller
 {
@@ -28,7 +28,7 @@ class TweetsController extends Controller
         return view('tweets.create');
     }
 
-    public function store(TweetImageRequest $request)
+    public function store(TweetRequest $request)
     {
         $user = Auth::user();
         $images = $request->image;

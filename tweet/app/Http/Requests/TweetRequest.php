@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TweetImageRequest extends FormRequest
+class TweetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class TweetImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'image.*' => 'file|image|mimes:jpeg,png'
+            'image.*' => 'file|image|mimes:jpeg,png',
+            'text' => 'required'
         ];
     }
 
@@ -32,7 +33,8 @@ class TweetImageRequest extends FormRequest
     {
         return [
             'image.*.image' => '画像ファイルを選択して下さい',
-            'image.*.mines' => '画像ファイルはjpegかpngのものを選択して下さい'
+            'image.*.mines' => '画像ファイルはjpegかpngのものを選択して下さい',
+            'text.required' => 'ツイート本文が未入力です。'
         ];
     }
 }
