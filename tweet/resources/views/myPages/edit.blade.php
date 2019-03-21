@@ -1,5 +1,9 @@
 @extends('layouts.layout')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('/css/errorMessage.css') }}">
+@endsection
+
 @php
     $title = 'ユーザー情報修正画面';
 @endphp
@@ -12,7 +16,7 @@
         @php $today = \Carbon\Carbon::now(); @endphp
 
         @if ($errors->has('*'))
-            <p>※入力に不備がありますのでご確認ください。</p>
+            <p class="errorMessage">※入力に不備がありますのでご確認ください。</p>
         @endif
         {{ Form::open(['url' => 'mypage/store']) }}
             <table>
@@ -20,14 +24,14 @@
                     <td>{{ Form::label('name','名前') }}</td>
                     <td>{{ Form::text('name', old('name', isset($user->name)? $user->name : '')) }}</td>
                     @if ($errors->has('name'))
-                        {{ $errors->first('name') }}
+                        <tr><td class="errorMessage">{{ $errors->first('name') }}</td></tr>
                     @endif
                 </tr>
                 <tr>
                     <td>{{ Form::label('email','メールアドレス') }}</td>
                     <td>{{ Form::text('email', old('email', isset($user->email)? $user->email : '')) }}</td>
                     @if ($errors->has('email'))
-                        {{ $errors->first('email') }}
+                    <tr><td class="errorMessage">{{ $errors->first('email') }}</td></tr>
                     @endif
                 </tr>
                 <tr>
