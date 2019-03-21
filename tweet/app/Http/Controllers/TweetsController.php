@@ -37,11 +37,7 @@ class TweetsController extends Controller
         $tweetCreateReault = Tweet::create($createArr);
 
         if (isset($images)){
-            foreach ($images as $image){
-                // dd($tweetCreateReault);
-                $filename = $image->store('public/avatar');
-                TweetImage::create(['tweet_id' => $tweetCreateReault->id, 'image' => basename($filename)]);
-            }
+            TweetImage::registImage($images, $tweetCreateReault);
         }
 
         
@@ -63,19 +59,17 @@ class TweetsController extends Controller
         return view('tweets.edit',['tweet' => $tweet]);
     }
 
-    public function update($tweet, Request $request)
+    public function update($tweetId, Request $request)
     {
-        $image = $request->image;
-        $updateArr = ['title' => $request->title, 'text' => $request->text];
+        $images = $request->image;
 
         DB::beginTransaction();
         try{
-            if (isset($image)){
-                $filename = $image->store('public/avatar');
-                $updateArr = array_merge($updateArr,['image' => $filename]);
+            if (isset($images)){
+                TweetImage::updateImage($images, $tweetId);
             }
     
-            Tweet::find($tweet)->update($updateArr);
+            Tweet::find($tweetId)->update(['title' => $request->title, 'text' => $request->text]);
             DB::commit();
         } catch(PDOException $e){
             DB::rollBack();
