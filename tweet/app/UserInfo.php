@@ -10,6 +10,10 @@ class UserInfo extends Model
 
     protected $fillable = array('user_id', 'name', 'email', 'year', 'month', 'day', 'profile','blood_type', 'hobby', 'residence', 'avatar_filename');
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 
     static function registUserInfo($values)
     {

@@ -12,7 +12,7 @@
 
 @section('content')
     @isset($userInfo->avatar_filename)
-        <img id="profile_img" src="{{ asset('storage/avatar/'. $userInfo->avatar_filename) }}" alt="avatar" />
+        <img id="profile_img" src="{{ asset('storage/avatar/'. $user->userInfo->avatar_filename) }}" alt="avatar" />
     @endisset
     @include('myPages.profileTable')
 @endsection

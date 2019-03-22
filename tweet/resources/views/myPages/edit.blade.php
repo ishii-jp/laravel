@@ -15,6 +15,10 @@
         <div>
         @php $today = \Carbon\Carbon::now(); @endphp
 
+        @if ($errors->has('exception_message'))
+            <strong class="errorMessage">{{ $errors->first('exception_message') }}</strong><br>
+        @endif
+        
         @if ($errors->has('*'))
             <p class="errorMessage">※入力に不備がありますのでご確認ください。</p>
         @endif

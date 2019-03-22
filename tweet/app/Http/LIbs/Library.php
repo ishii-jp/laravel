@@ -2,7 +2,7 @@
 namespace App\Libs;
 
 // use DB;
-use MessageBag;
+use Illuminate\Support\MessageBag;
 use Redirect;
 
 class Library

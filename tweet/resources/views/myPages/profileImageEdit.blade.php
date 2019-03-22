@@ -18,6 +18,10 @@
         {{ $success }}
     @endif
 
+    @if ($errors->has('exception_message'))
+            <strong class="errorMessage">{{ $errors->first('exception_message') }}</strong><br>
+    @endif
+
     @if ($errors->has('file'))
         {{ $errors->first('file') }}
     @endif

@@ -21,9 +21,9 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function(){
     Route::resource('tweet', 'TweetsController');
     // マイページ
-    Route::get('/mypage', 'MyPageController@index');
+    Route::get('/mypage', 'MyPageController@index')->name('myPage');
     Route::get('/mypage/userinfo', 'MyPageController@userInfo');
-    Route::get('/mypage/edit', 'MyPageController@edit');
+    Route::get('/mypage/edit', 'MyPageController@edit')->name('myPageEdit');
     Route::post('/mypage/store', 'MyPageController@store');
     Route::get('/mypage/passwordEdit', 'MyPageController@passwordEdit')->name('passwordEdit');
     Route::post('/mypage/passwordStore', 'MyPageController@passwordStore');

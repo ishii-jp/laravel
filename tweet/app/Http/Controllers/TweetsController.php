@@ -12,6 +12,9 @@ use DB;
 use App\Libs\Library;
 use App\Http\Requests\ProfileImageRequest;
 use App\Http\Requests\TweetRequest;
+// 例外処理テスト用
+// use Exception;
+// throw new Exception('ツイート投稿エラー');
 
 class TweetsController extends Controller
 {
@@ -42,9 +45,9 @@ class TweetsController extends Controller
                 TweetImage::registImage($images, $tweetCreateReault);
             }
             DB::commit();
-        } catch(PDOException $e){
+        } catch(Exception $e){
             DB::rollBack();
-            Library::redirectWithErrors('/tweet/create', $e->getMessage());
+            Library::redirectWithErrors('tweet.create', $e->getMessage());
         }
         
         return view('tweets.store', ['user' => $user]);
@@ -77,9 +80,9 @@ class TweetsController extends Controller
     
             Tweet::find($tweetId)->update(['title' => $request->title, 'text' => $request->text]);
             DB::commit();
-        } catch(PDOException $e){
+        } catch(Exception $e){
             DB::rollBack();
-            Library::redirectWithErrors("/tweet/$tweet/edit", $e->getMessage());
+            Library::redirectWithErrors('tweet.edit', $e->getMessage());
         }
         
         return view('tweets.update');
@@ -92,9 +95,9 @@ class TweetsController extends Controller
         try {
             Tweet::destroy($id);
             DB::commit();
-        } catch(PDOException $e){
+        } catch(Exception $e){
             DB::rollBack();
-            Library::redirectWithErrors("/tweet/$user_id", $e->getMessage());
+            Library::redirectWithErrors('myPage', $e->getMessage());
         }
         
         return redirect("/tweet/$user_id");

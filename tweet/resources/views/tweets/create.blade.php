@@ -15,6 +15,9 @@
         <p class="errorMessage">※入力に不備がありますのでご確認ください。</p>
     @endif
     <div>
+    @if ($errors->has('exception_message'))
+        <strong class="errorMessage">{{ $errors->first('exception_message') }}</strong><br>
+    @endif
         {{ Form::open(['url' => '/tweet', 'method' => 'post', 'files' => true]) }}
             <table>
                 <tr><th>{{ Form::label('title', 'タイトル') }}</th></tr>

@@ -7,6 +7,9 @@
 @section('title', $title)
 
 @section('content')
+    @if ($errors->has('exception_message'))
+        <strong class="errorMessage">{{ $errors->first('exception_message') }}</strong><br>
+    @endif
     {{ Form::open(['url' => "/tweet/$tweet->id", 'method' => 'PATCH', 'files' => true]) }}
         <table>
             <tr><th>{{ Form::label('title', 'タイトル') }}</th></tr>

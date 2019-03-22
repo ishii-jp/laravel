@@ -11,8 +11,8 @@
 @section('title', $title)
 
 @section('content')
-    @isset($userInfo->avatar_filename)
-        <img id="profile_img" src="{{ asset('storage/avatar/'. $userInfo->avatar_filename) }}" alt="avatar" />
+    @isset($user->userInfo->avatar_filename)
+        <img id="profile_img" src="{{ asset('storage/avatar/'. $user->userInfo->avatar_filename) }}" alt="avatar" />
     @endisset
     <span>最後にログインした日時　</span>{{ $user->last_login_at }}<br>
     @include('myPages.profileTable')

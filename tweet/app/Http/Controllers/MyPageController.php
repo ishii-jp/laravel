@@ -22,10 +22,8 @@ class MyPageController extends Controller
     }
 
     public function getUserInfo($userId){
-        $user = User::find($userId);
-        // ここもリレーションで取得したい
-        $userInfo = UserInfo::where('user_id', $userId)->first();
-        $param = ['user' => $user, 'userInfo' => $userInfo];
+        $user = User::with('userInfo')->find($userId);
+        $param = ['user' => $user];
         return $param;
     }
 
@@ -65,7 +63,7 @@ class MyPageController extends Controller
                     $user->password = $encrypted;
                     $user->save();
                     DB::commit();
-                } catch (PDOException $e){
+                } catch (Exception $e){
                     DB::rollBack();
                     Library::redirectWithErrors('passwordEdit', $e->getMessage());
                 }
@@ -89,9 +87,9 @@ class MyPageController extends Controller
         try {
             UserInfo::registUserInfo($values);
             DB::commit();
-        } catch(PDOException $e){
+        } catch(Exception $e){
             DB::rollBack();
-            Library::redirectWithErrors("/mypage/edit", $e->getMessage());
+            Library::redirectWithErrors('myPageEdit', $e->getMessage());
         }
 
         return redirect('/mypage/userinfo/');
@@ -126,9 +124,9 @@ class MyPageController extends Controller
             }
             $param['success'] = '保存しました';
             DB::commit();
-        } catch(PDOException $e) {
+        } catch(Exception $e) {
             DB::rollBack();
-            Library::redirectWithErrors("/mypage/profile/image", $e->getMessage());
+            Library::redirectWithErrors('profileImage', $e->getMessage());
         }
         
         return view('myPages.profileImageEdit', $param);
