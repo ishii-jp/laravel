@@ -2,6 +2,7 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('/css/mypage.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/errorMessage.css') }}">
 @ensection
 
 @php
@@ -19,11 +20,11 @@
     @endif
 
     @if ($errors->has('exception_message'))
-            <strong class="errorMessage">{{ $errors->first('exception_message') }}</strong><br>
+        <strong class="errorMessage">{{ $errors->first('exception_message') }}</strong><br>
     @endif
 
     @if ($errors->has('file'))
-        {{ $errors->first('file') }}
+        <strong class="errorMessage">{{ $errors->first('file') }}</strong><br>
     @endif
 
     @isset($userInfo->avatar_filename)
