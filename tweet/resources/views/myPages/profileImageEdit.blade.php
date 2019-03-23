@@ -3,7 +3,7 @@
 @section('css')
     <link rel="stylesheet" href="{{ asset('/css/mypage.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/errorMessage.css') }}">
-@ensection
+@endsection
 
 @php
     $title = 'プロフィール画像登録画面';
@@ -27,10 +27,10 @@
         <strong class="errorMessage">{{ $errors->first('file') }}</strong><br>
     @endif
 
-    @isset($userInfo->avatar_filename)
-        <img id="profile_edit_img" src="{{ asset('storage/avatar/'. $userInfo->avatar_filename) }}" alt="avatar" />
+    @isset($user->userInfo->avatar_filename)
+        <img id="profile_edit_img" src="{{ asset('storage/avatar/'. $user->userInfo->avatar_filename) }}" alt="avatar" />
     @endisset
-    {{ Form::open(['url' => '/mypage/profile/image', 'files' => true])}}
+    {{ Form::open(['url' => '/mypage/profile/image', 'files' => true]) }}
         {{ Form::label('file', '画像アップロード', ['class' => 'control-label']) }}
         {{ Form::file('file') }}
         {{ Form::submit('アップロード') }}
