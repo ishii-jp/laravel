@@ -34,6 +34,7 @@
             </tr>
             @endforeach
     </table>
+    {{ $tweets->links() }}
 @endsection
 
 @section('footer')

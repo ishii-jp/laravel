@@ -22,7 +22,7 @@ class TweetsController extends Controller
         // この書き方でforeachなどで回すと回った分だけクエリーが発生し負荷となる。
         // $tweets = Tweet::orderBy('updated_at', 'DESC')->get();
         // リレーションを用いてコレクションを取得する書き方(N+1問題を解決)
-        $tweets = Tweet::with('user', 'tweetImages')->orderBy('updated_at', 'DESC')->get();
+        $tweets = Tweet::with('user', 'tweetImages')->orderBy('updated_at', 'DESC')->paginate(10);
         return view('tweets.index', ['tweets' => $tweets]);
     }
 
@@ -58,7 +58,7 @@ class TweetsController extends Controller
         $user = Auth::user();
         // $tweets = Tweet::where('user_id',$id)->orderBy('updated_at','DESC')->get();
         // N+1問題対策
-        $tweets = Tweet::with('user')->where('user_id', $id)->orderBy('updated_at', 'DESC')->get();
+        $tweets = Tweet::with('user')->where('user_id', $id)->orderBy('updated_at', 'DESC')->paginate(10);
         return view('tweets.show', ['tweets' => $tweets, 'user' => $user]);
     }
 
