@@ -12,6 +12,7 @@ use DB;
 use App\Libs\Library;
 use App\User;
 use App\UserInfo;
+use Storage;
 
 class MyPageController extends Controller
 {
@@ -107,29 +108,45 @@ class MyPageController extends Controller
         return view('myPages.profileImageEdit', $param);
     }
 
+    public function profileImageDelete(Request $request)
+    {
+        // $user = User::with('userInfo')->find(Auth::user()->id);
+        $userInfo = UserInfo::find(Auth::user()->id);
+        $route = 'profileImage';
+        if (isset($userInfo->avatar_filename)){
+            //ここにアバター画像削除の処理を記述する
+            DB::beginTransaction();
+            try {
+                Storage::delete('public/avatar/'. $userInfo->avatar_filename);
+                $userInfo->avatar_filename = null;
+                $userInfo->save();
+                DB::commit();
+            } catch(Exception $e){
+                DB::rollBack();
+                Library::redirectWithErrors($route, $e->getMessage());
+            }
+            
+            return redirect()->route($route)->with('success', '削除が完了しました。');
+        } else {
+            return redirect()->route($route)->with('success', 'アバターが登録されていません');
+        }
+    }
+
     public function profileImageStore(ProfileImageRequest $request)
     {
         $userId = Auth::user()->id;
-        $param = $this->getUserInfo($userId);
-
-        $filename = $request->file->store('public/avatar');
+        $route = 'profileImage';
 
         DB::beginTransaction();
         try {
-            if (is_null($param['userInfo'])){
-                UserInfo::create(['avatar_filename' => basename($filename), 'user_id' => $userId]);
-            } else {
-                $param['userInfo']->avatar_filename = basename($filename);
-                $param['userInfo']->save();
-            }
-            $param['success'] = '保存しました';
+            $filename = $request->file->store('public/avatar');
+            userInfo::updateOrCreate(['user_id' => $userId],['avatar_filename' => basename($filename)]);
             DB::commit();
         } catch(Exception $e) {
             DB::rollBack();
-            Library::redirectWithErrors('profileImage', $e->getMessage());
+            Library::redirectWithErrors($route, $e->getMessage());
         }
-        
-        return view('myPages.profileImageEdit', $param);
+        return redirect()->route($route)->with('success', ' 保存しました。');
         
     }
 }
