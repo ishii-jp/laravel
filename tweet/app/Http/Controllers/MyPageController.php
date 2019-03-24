@@ -135,18 +135,21 @@ class MyPageController extends Controller
     public function profileImageStore(ProfileImageRequest $request)
     {
         $userId = Auth::user()->id;
+        $userInfo = UserInfo::find($userId);
         $route = 'profileImage';
 
         DB::beginTransaction();
         try {
+            if (isset($userInfo['avatar_filename'])){
+                Storage::delete('public/avatar/'. $userInfo['avatar_filename']);
+            }
             $filename = $request->file->store('public/avatar');
-            userInfo::updateOrCreate(['user_id' => $userId],['avatar_filename' => basename($filename)]);
+            UserInfo::updateOrCreate(['user_id' => $userId],['avatar_filename' => basename($filename)]);
             DB::commit();
         } catch(Exception $e) {
             DB::rollBack();
             Library::redirectWithErrors($route, $e->getMessage());
         }
         return redirect()->route($route)->with('success', ' 保存しました。');
-        
     }
 }
