@@ -111,7 +111,7 @@ class MyPageController extends Controller
     public function profileImageDelete(Request $request)
     {
         // $user = User::with('userInfo')->find(Auth::user()->id);
-        $userInfo = UserInfo::find(Auth::user()->id);
+        $userInfo = UserInfo::where('user_id', Auth::user()->id)->first();
         $route = 'profileImage';
         if (isset($userInfo->avatar_filename)){
             //ここにアバター画像削除の処理を記述する
@@ -125,7 +125,6 @@ class MyPageController extends Controller
                 DB::rollBack();
                 Library::redirectWithErrors($route, $e->getMessage());
             }
-            
             return redirect()->route($route)->with('success', '削除が完了しました。');
         } else {
             return redirect()->route($route)->with('success', 'アバターが登録されていません');

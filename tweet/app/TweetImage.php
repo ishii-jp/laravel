@@ -25,7 +25,7 @@ class TweetImage extends Model
     {
         foreach ($images as $image){
             $filename = $image->store('public/avatar');
-            TweetImage::updateOrCreate(['tweet_id' => $tweetId],['image' => basename($filename)]);
+            TweetImage::create(['tweet_id' => $tweetId, 'image' => basename($filename)]);
         }
     }
 }
