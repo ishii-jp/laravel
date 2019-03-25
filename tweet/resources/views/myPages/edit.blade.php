@@ -40,32 +40,32 @@
                 </tr>
                 <tr>
                     <td>{{ Form::label('profile', '自己紹介') }}</td>
-                    <td>{{ Form::textarea('profile', old('profile', isset($userInfo->profile)? $userInfo->profile : '', ['size' => '30x3'])) }}</td>
+                    <td>{{ Form::textarea('profile', old('profile', isset($user->userInfo->profile)? $user->userInfo->profile : '', ['size' => '30x3'])) }}</td>
                 </tr>
                 <tr><td>生年月日</td></tr>
                 <tr>
                     <td>{{ Form::label('year', '年') }}</td>
-                    <td>{{ Form::selectRange('year', 1900, 2019, isset($userInfo->year)? $userInfo->year : $today->year) }}年</td>
+                    <td>{{ Form::selectRange('year', 1900, 2019, isset($user->userInfo->year)? $user->userInfo->year : $today->year) }}年</td>
                 </tr>
                 <tr>
                     <td>{{ Form::label('month', '月') }}</td>
-                    <td>{{ Form::selectRange('month', 1, 12, isset($userInfo->month)? $userInfo->month : $today->month) }}月</td>
+                    <td>{{ Form::selectRange('month', 1, 12, isset($user->userInfo->month)? $user->userInfo->month : $today->month) }}月</td>
                 </tr>
                 <tr>
                     <td>{{ Form::label('day', '日') }}</td>
-                    <td>{{ Form::selectRange('day', 1, 31, isset($userInfo->day)? $userInfo->day : $today->day) }}日</td>
+                    <td>{{ Form::selectRange('day', 1, 31, isset($user->userInfo->day)? $user->userInfo->day : $today->day) }}日</td>
                 </tr>
                 <tr>
                     <td>{{ Form::label('residence', '居住地') }}</td>
-                    <td>{{ Form::text('residence', old('residence', isset($userInfo->residence)? $userInfo->residence : '')) }}</td>
+                    <td>{{ Form::text('residence', old('residence', isset($user->userInfo->residence)? $user->userInfo->residence : '')) }}</td>
                 </tr>
                 <tr>
                     <td>{{ Form::label('blood_type', '血液型') }}</td>
-                    <td>{{ Form::text('blood_type', old('blood_type', isset($userInfo->blood_type)? $userInfo->blood_type : '')) }}</td>
+                    <td>{{ Form::text('blood_type', old('blood_type', isset($user->userInfo->blood_type)? $user->userInfo->blood_type : '')) }}</td>
                 </tr>
                 <tr>
                     <td>{{ Form::label('hobby', '趣味') }}</td>
-                    <td>{{ Form::text('hobby', old('hobby', isset($userInfo->hobby)? $userInfo->hobby : '')) }}</td>
+                    <td>{{ Form::text('hobby', old('hobby', isset($user->userInfo->hobby)? $user->userInfo->hobby : '')) }}</td>
                 </tr>
             </table>
             {{ Form::hidden('user_id', "$user->id") }}

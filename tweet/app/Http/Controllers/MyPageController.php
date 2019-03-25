@@ -36,14 +36,14 @@ class MyPageController extends Controller
 
     public function userInfo()
     {
-        $param = $this->getUserInfo(Auth::user()->id);
-        return view('myPages.userInfo', $param);
+        $user = $this->getUserInfo(Auth::user()->id);
+        return view('myPages.userInfo', $user);
     }
 
     public function edit()
     {
-        $param = $this->getUserInfo(Auth::user()->id);
-        return view('myPages.edit', $param);
+        $user = $this->getUserInfo(Auth::user()->id);
+        return view('myPages.edit', $user);
     }
 
     public function passwordEdit()
