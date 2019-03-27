@@ -11,11 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 // resourceで記述するとgetで同じルーティングを書いても反映されないっぽい？
 // Route::get('tweet', 'TweetsController@index')->middleware('auth');
+
+// ホーム画面
+Route::get('/', 'HomeController@index')->name('home');
 
 // グループ化したルーティング
 Route::middleware('auth')->group(function(){
