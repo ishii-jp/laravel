@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function(){
     Route::delete('/mypage/profile/imageDelete', 'MyPageController@profileImageDelete')->name('profileImageDelete');
     Route::post('/mypage/profile/image', 'MyPageController@ProfileImageStore')->name('profileImageStore');
     Route::get('/mypage/profile/{userId}', 'MyPageController@profile')->name('profile');
+    Route::get('/mypage/profile/tweet/{userId}', 'MyPageController@tweetShow')->name('tweetShow');
 });
 
 

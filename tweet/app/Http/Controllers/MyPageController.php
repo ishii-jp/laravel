@@ -99,7 +99,18 @@ class MyPageController extends Controller
     public function profile($userId)
     {
         $param = $this->getUserInfo($userId);
+        $param = $param + ['userId' => $userId];
         return view('mypages.profileIndex', $param);
+    }
+
+    public function tweetShow($userId)
+    {
+        $function = function ($query){
+            $query->orderBy('updated_at', 'DESC');
+        };
+        
+        $user = User::with(['tweets' => $function,'userInfo'])->orderBy('updated_at', 'DESC')->find($userId);
+        return view('mypages.profileTweetShow', ['user' => $user]);
     }
 
     public function profileImage()

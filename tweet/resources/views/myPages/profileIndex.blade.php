@@ -6,7 +6,7 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('/css/mypage.css') }}">
-@ensection
+@endsection
 
 @section('title', $title)
 
@@ -14,7 +14,10 @@
     @isset($user->userInfo->avatar_filename)
         <img id="profile_img" src="{{ asset('storage/avatar/'. $user->userInfo->avatar_filename) }}" alt="avatar" />
     @endisset
+
     @include('myPages.profileTable')
+
+    <p><a href="/mypage/profile/tweet/{{ $userId }}">{{ $user->name }}さんのツイート</a></p>
 @endsection
 
 @section('footer')
