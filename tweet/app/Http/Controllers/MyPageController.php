@@ -109,7 +109,7 @@ class MyPageController extends Controller
             $query->orderBy('updated_at', 'DESC');
         };
         
-        $user = User::with(['tweets' => $function,'userInfo'])->orderBy('updated_at', 'DESC')->find($userId);
+        $user = User::with(['tweets' => $function,'userInfo'])->find($userId);
         return view('mypages.profileTweetShow', ['user' => $user]);
     }
 
