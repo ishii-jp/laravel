@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function(){
     Route::post('/mypage/profile/image', 'MyPageController@ProfileImageStore')->name('profileImageStore');
     Route::get('/mypage/profile/{userId}', 'MyPageController@profile')->name('profile');
     Route::get('/mypage/profile/tweet/{userId}', 'MyPageController@tweetShow')->name('tweetShow');
+    Route::get('/reply/{tweetId}', 'ReplyController@replyCreate')->name('replyCreate');
+    Route::post('/reply/store/{tweetId}', 'ReplyController@replyStore')->name('replyStore');
 });
 
 

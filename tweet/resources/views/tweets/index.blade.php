@@ -31,6 +31,8 @@
                 </td>
                 
                 <td>{{ $tweet->updated_at }}</td>
+                <td><a href="/reply/{{ $tweet->id }}">返信</a></td>
+{{--                ここにこのツイートに対する返信があった場合はリンクを出力して、リンク先の画面で親ツイートと返信ツイートを全て出力します。--}}
             </tr>
             @endforeach
     </table>

@@ -18,15 +18,21 @@
     @if ($errors->has('exception_message'))
         <strong class="errorMessage">{{ $errors->first('exception_message') }}</strong><br>
     @endif
-        {{ Form::open(['url' => '/tweet', 'method' => 'post', 'files' => true]) }}
+        @if (Request::path() == 'tweet/create')
+            {{ Form::open(['url' => '/tweet', 'method' => 'post', 'files' => true]) }}
+        @else
+            {{ Form::open(['url' => "/reply/store/$tweetId", 'method' => 'post']) }}
+        @endif
             <table>
                 <tr><th>{{ Form::label('title', 'タイトル') }}</th></tr>
                 <tr><td>{{ Form::text('title', old('title'), ['placeholder' => 'タイトル']) }}</td></tr>
                 @if ($errors->has('image.*'))
                     <tr><td class="errorMessage">{{ $errors->first('image.*') }}</tr></td>
                 @endif
-                <tr><th>{{ Form::label('image[]', ' 画像アップロード(複数選択できます)') }}</th></tr>
-                <tr><td>{{ Form::file('image[]', ['multiple']) }}</td></tr>
+                @if(Request::path() == 'tweet/create')
+                    <tr><th>{{ Form::label('image[]', ' 画像アップロード(複数選択できます)') }}</th></tr>
+                    <tr><td>{{ Form::file('image[]', ['multiple']) }}</td></tr>
+                @endif
                 @if ($errors->has('text'))
                     <tr><td class="errorMessage">{{ $errors->first('text') }}</tr></td>
                 @endif
@@ -40,15 +46,3 @@
 @section('footer')
     <br>copyright ishii 2018
 @endsection
-
-
-<!-- {{ Form::open(['url' => '/tweet', 'method' => 'post', 'files' => true]) }}
-            <table>
-                <tr><th>{{ Form::label('title', 'タイトル') }}</th></tr>
-                <tr><td>{{ Form::text('title', old('title'), ['placeholder' => 'タイトル']) }}</td></tr>
-                <tr><th>{{ Form::label('image', ' 画像アップロード') }}</th></tr>
-                <tr><td>{{Form::file('image')}}</td></tr>
-                <tr><td>{{ Form::textarea('text', old('text'), ['placeholder' => '本文']) }}</td></tr>
-            </table>
-            {{ Form::submit('ツイート') }}
-        {{ Form::close() }} -->
