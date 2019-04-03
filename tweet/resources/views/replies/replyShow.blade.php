@@ -20,7 +20,7 @@
         </tr>
     </table>
     <table>
-        <tr><th>{{ $tweets->user->name }}への返信</th></tr>
+        <tr><th>{{ $tweets->user->name }}への返信↓</th></tr>
     @foreach($tweets->replies as $reply)
         @if(empty($reply))
             <p>返信はありません。</p>
@@ -29,7 +29,7 @@
                 <td><a href="/mypage/profile/{{ $reply->user_id }}">{{ $reply->user->name }}</a></td>
                 <td>{{ $reply->title }}</td>
                 <td>{{ $reply->text }}</td>
-                <td>{{ $reply->updated_at }}</td>
+                <td>　{{ $reply->updated_at }}</td>
             </tr>
         @endif
     @endforeach
