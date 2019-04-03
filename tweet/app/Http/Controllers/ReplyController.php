@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\TweetRequest;
 use Illuminate\Http\Request;
 use App\Reply;
+use App\User;
+use App\Tweet;
 
 class ReplyController extends Controller
 {
@@ -27,5 +29,12 @@ class ReplyController extends Controller
         ]);
 
         return view('replies.replyComplete');
+    }
+
+    public function replyShow($tweetId)
+    {
+        $tweets = Tweet::with(['replies', 'user'])->find($tweetId);
+//        dd($tweets);
+        return view('replies.replyShow', ['tweets' => $tweets]);
     }
 }

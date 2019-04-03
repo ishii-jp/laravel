@@ -32,7 +32,12 @@
                 
                 <td>{{ $tweet->updated_at }}</td>
                 <td><a href="/reply/{{ $tweet->id }}">返信</a></td>
+                <td><a href="/reply/show/{{ $tweet->id }}">　この投稿への返信</a></td>
 {{--                ここにこのツイートに対する返信があった場合はリンクを出力して、リンク先の画面で親ツイートと返信ツイートを全て出力します。--}}
+{{--                @php var_dump($tweet->user); @endphp--}}
+                @foreach($tweet->replies as $reply)
+                    {{ $reply->text }}
+                @endforeach
             </tr>
             @endforeach
     </table>
