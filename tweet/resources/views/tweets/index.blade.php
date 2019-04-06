@@ -1,5 +1,9 @@
 @extends('layouts.layout')
 
+@section('meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @section('css')
     <link rel="stylesheet" href="{{ asset('/css/mypage.css') }}">
 @endsection
@@ -35,10 +39,21 @@
                 <td><a href="/reply/show/{{ $tweet->id }}">　この投稿への返信</a></td>
 {{--                ここにこのツイートに対する返信があった場合はリンクを出力して、リンク先の画面で親ツイートと返信ツイートを全て出力します。--}}
 {{--                @php var_dump($tweet->user); @endphp--}}
+                <td>
+                    <button id="like{{ $tweet->id }}" data-tweet_number="{{ $tweet->id }}" onClick='like_button($("#like{{ $tweet->id}}").data("tweet_number"))'>いいね！</button>
+                </td>
             </tr>
             @endforeach
     </table>
     {{ $tweets->links() }}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{{ asset('js/like.js') }}"></script>
+    <!-- <script>
+        $('.like').on('click', function(){
+            like_button($('.like').data("tweet_number"));
+        });
+    </script> -->
 @endsection
 
 @section('footer')

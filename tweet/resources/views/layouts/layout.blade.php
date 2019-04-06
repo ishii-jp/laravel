@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    @yield('meta')
     <title>@yield('title')</title>
     <link rel="stylesheet" type="text/css" href="/css/app.css">
     @yield('css')

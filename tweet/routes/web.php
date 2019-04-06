@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/reply/{tweetId}', 'ReplyController@replyCreate')->name('replyCreate');
     Route::post('/reply/store/{tweetId}', 'ReplyController@replyStore')->name('replyStore');
     Route::get('/reply/show/{tweetId}', 'ReplyController@replyShow')->name('replyShow');
+    Route::resource('like', 'LikeController', ['only' => ['store']]);
 });
 
 
