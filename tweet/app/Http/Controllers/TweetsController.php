@@ -22,7 +22,7 @@ class TweetsController extends Controller
         // この書き方でforeachなどで回すと回った分だけクエリーが発生し負荷となる。
         // $tweets = Tweet::orderBy('updated_at', 'DESC')->get();
         // リレーションを用いてコレクションを取得する書き方(N+1問題を解決)
-        $tweets = Tweet::with(['user', 'tweetImages', 'replies'])->orderBy('updated_at', 'DESC')->paginate(10);
+        $tweets = Tweet::with(['user', 'tweetImages', 'replies', 'likes'])->orderBy('updated_at', 'DESC')->paginate(10);
 //dd($tweets);
         return view('tweets.index', ['tweets' => $tweets]);
     }

@@ -23,7 +23,7 @@ class Tweet extends Model
         return $this->hasMany('App\Reply');
     }
 
-    public function like(){
+    public function likes(){
         return $this->hasMany(Like::class);
     }
 }
