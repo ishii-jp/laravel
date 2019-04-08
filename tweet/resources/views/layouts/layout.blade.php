@@ -4,8 +4,11 @@
     <meta charset="utf-8">
     @yield('meta')
     <title>@yield('title')</title>
-    <link rel="stylesheet" type="text/css" href="/css/app.css">
     @yield('css')
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap.css') }}">
+    <script type="text/javascript" src="{{ asset('/js/jquery-3.3.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/bootstrap.js') }}"></script>
   </head>
     <body>
         <h1>@yield('title')</h1>
