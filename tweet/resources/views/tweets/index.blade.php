@@ -27,9 +27,9 @@
                 @foreach ($tweets as $tweet)
                 <tr>
                     <td><a href="/mypage/profile/{{ $tweet->user->id }}">{{ $tweet->user->name }}</a></td>
-                    <td>{{ isset($tweet->title)? $tweet->title : '' }}</td>
+                    <td>{{ isset($tweet->title)? nl2br(e($tweet->title)) : '' }}</td>
                     <td>
-                        {{ $tweet->text }}
+                        {!! nl2br(e( $tweet->text )) !!}
                         @foreach ($tweet->tweetImages as $tweetImage)
                             @isset($tweetImage->image)
                                 <img id="profile_img" src="{{ asset('storage/avatar/'. $tweetImage->image) }}" alt="avatar" />
@@ -61,5 +61,10 @@
 @endsection
 
 @section('footer')
-    <br>copyright ishii 2018
+    <!-- <br>copyright ishii 2018 -->
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">copyright ishii 2018</p>
+        </div>
+    </footer>
 @endsection
