@@ -59,12 +59,3 @@
         </script> -->
     </div>
 @endsection
-
-@section('footer')
-    <!-- <br>copyright ishii 2018 -->
-    <footer class="footer">
-        <div class="container">
-            <p class="text-muted">copyright ishii 2018</p>
-        </div>
-    </footer>
-@endsection
