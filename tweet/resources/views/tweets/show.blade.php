@@ -11,10 +11,11 @@
 @section('title', $title)
 
 @section('content')
-    <p>{{ $user->name }}さんの投稿一覧</p>
-        <table>
+    <div class="container">
+        <p>{{ $user->name }}さんの投稿一覧</p>
+        <table class="table table-striped">
             <tr>
-                <th>投稿者　</th><th>タイトル　</th><th>本文　</th><th>投稿日時　</th>
+                <th>投稿者</th><th>タイトル</th><th>本文</th><th>投稿日時</th><th></th><th></th><th></th>
             </tr>
             @foreach ($tweets as $tweet)
             <tr>
@@ -29,17 +30,14 @@
                     @endforeach
                 </td>
                 <td>{{ $tweet->updated_at }}</td>
-                <td><span><a href="/tweet/{{ $tweet->id }}/edit">編集　</a></span></td>
+                <td><span><a href="/tweet/{{ $tweet->id }}/edit" class="btn btn-default active" role="button">編集</a></span></td>
                 {{ Form::open(['url' => "/tweet/$tweet->id"]) }}
                     {{ method_field('delete') }}
-                    <td>{{ Form::submit('削除', ['onclick' => "return confirm('本当にツイートを削除しますか？')"])}}</td>
+                    <td>{{ Form::submit('削除', ['class' => 'btn btn-success', 'onclick' => "return confirm('本当にツイートを削除しますか？')"])}}</td>
                 {{ Form::close() }}
             </tr>
             @endforeach
         </table>
         {{ $tweets->links() }}
-@endsection
-
-@section('footer')
-    <br>copyright ishii 2018
+    </div>
 @endsection

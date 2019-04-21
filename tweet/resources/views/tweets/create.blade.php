@@ -24,7 +24,7 @@
             @else
                 {{ Form::open(['url' => "/reply/store/$tweetId", 'method' => 'post']) }}
             @endif
-                <table>
+                <table class="table table-striped">
                     <tr><th>{{ Form::label('title', 'タイトル') }}</th></tr>
                     <tr><td>{{ Form::text('title', old('title'), ['placeholder' => 'タイトル']) }}</td></tr>
                     @if ($errors->has('image.*'))
@@ -43,8 +43,4 @@
             {{ Form::close() }}
         </div>
     </div>
-@endsection
-
-@section('footer')
-    <br>copyright ishii 2018
 @endsection

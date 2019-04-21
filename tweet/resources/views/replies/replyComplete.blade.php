@@ -8,11 +8,8 @@
 @section('title', $title)
 
 @section('content')
-    <h4>返信が完了しました。</h4>
-
-    <a href="/">トップページ</a>
-@endsection
-
-@section('footer')
-    <br>copyright ishii 2018
+    <div class="container">
+        <h4>返信が完了しました。</h4>
+        <a href="/" class="btn btn-default btn-lg active" role="button">トップページ</a>
+    </div>
 @endsection

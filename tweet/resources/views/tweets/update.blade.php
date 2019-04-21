@@ -9,7 +9,7 @@
 @section('content')
     <div>
        <p>ツイートの編集が完了しました。</p>
-       <a href="/tweet">ホームはこちら</a>
+       <a href="/tweet" class="btn btn-default active" role="button">ホームはこちら</a>
     </div>
 @endsection
 

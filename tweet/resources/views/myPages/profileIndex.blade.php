@@ -11,13 +11,15 @@
 @section('title', $title)
 
 @section('content')
-    @isset($user->userInfo->avatar_filename)
-        <img id="profile_img" src="{{ asset('storage/avatar/'. $user->userInfo->avatar_filename) }}" alt="avatar" />
-    @endisset
+    <div class="container">
+        @isset($user->userInfo->avatar_filename)
+            <img id="profile_img" src="{{ asset('storage/avatar/'. $user->userInfo->avatar_filename) }}" alt="avatar" />
+        @endisset
 
-    @include('myPages.profileTable')
+        @include('myPages.profileTable')
 
-    <p><a href="/mypage/profile/tweet/{{ $userId }}">{{ $user->name }}さんのツイート</a></p>
+        <p><a href="/mypage/profile/tweet/{{ $userId }}">{{ $user->name }}さんのツイート</a></p>
+    </div>
 @endsection
 
 @section('footer')

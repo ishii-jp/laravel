@@ -11,16 +11,14 @@
 @section('title', $title)
 
 @section('content')
-    @if ($errors->has('exception_message'))
-        <strong class="errorMessage">ツイート削除の工程でエラーが発生しました。<br>{{ $errors->first('exception_message') }}</strong><br>
-    @endif
-    <p>{{ $user->name }}さんこんにちは。</p>
-    <p><a href="/tweet/{{ $user->id }}">自分の投稿一覧</a></p>
-    <p><a href="/mypage/userinfo/">ユーザー情報</a></p>
-    <!-- <p><a href="/mypage/profile/{{ $user->id }}">プロフィール</a></p> -->
-    
-@endsection
-
-@section('footer')
-    <br>copyright ishii 2018
+    <div class="container">
+        @if ($errors->has('exception_message'))
+            <strong class="errorMessage">ツイート削除の工程でエラーが発生しました。<br>{{ $errors->first('exception_message') }}</strong><br>
+        @endif
+        <div class="row">
+            <p>{{ $user->name }}さんこんにちは。</p>
+        </div>
+        <p><a href="/tweet/{{ $user->id }}" class="btn btn-default active" role="button">自分の投稿一覧</a></p>
+        <p><a href="/mypage/userinfo/" class="btn btn-default active" role="button">ユーザー情報</a></p>
+    </div>
 @endsection

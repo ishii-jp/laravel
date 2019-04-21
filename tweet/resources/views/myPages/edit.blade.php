@@ -11,7 +11,7 @@
 @section('title', $title)
 
 @section('content')
-    <div>
+<div class="container">
         <div>
         @php $today = \Carbon\Carbon::now(); @endphp
 
@@ -23,7 +23,7 @@
             <p class="errorMessage">※入力に不備がありますのでご確認ください。</p>
         @endif
         {{ Form::open(['url' => 'mypage/store']) }}
-            <table>
+            <table class="table table-striped">
                 <tr>
                     <td>{{ Form::label('name','名前') }}</td>
                     <td>{{ Form::text('name', old('name', isset($user->name)? $user->name : '')) }}</td>
@@ -69,12 +69,8 @@
                 </tr>
             </table>
             {{ Form::hidden('user_id', "$user->id") }}
-            {{ Form::submit('編集する') }}
+            {{ Form::submit('編集する',['class' => 'btn btn-success']) }}
         {{ Form::close() }}
         </div>
     </div>
-@endsection
-
-@section('footer')
-    <br>copyright ishii 2018
 @endsection

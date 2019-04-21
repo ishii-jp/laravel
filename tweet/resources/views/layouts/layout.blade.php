@@ -24,19 +24,23 @@
 
           <div class="collapse navbar-collapse" id="bs-navi">
             <ul class="nav navbar-nav">
-              <li><a href="/tweet">トップページ</a></li>
+              <li><a href="/tweet" class="btn btn-default active" role="button">トップページ</a></li>
               @if (Auth::check())
-                <li><a href="/logout">ログアウト</a></li>
-                <li><a href="/mypage">マイページ</a></li>
+                <li><a href="/logout" class="btn btn-default active" role="button">ログアウト</a></li>
+                <li><a href="/mypage" class="btn btn-default active" role="button">マイページ</a></li>
               @else
-                <li><a href="/login">ログイン</a></li>
-                <li><a href="/register">新規登録</a></li>
+                <li><a href="/login" class="btn btn-default active" role="button">ログイン</a></li>
+                <li><a href="/register" class="btn btn-default active" role="button">新規登録</a></li>
               @endif
             </ul>
+            @if(Auth::check())
+              <p>現在ログイン中のユーザー：{{ Auth::user()->name }}</p>
+              <p>最終ログイン日時：{{ Auth::user()->last_login_at }}</p>
+            @endif
           </div>
         </div>
     </nav>
     @yield('content')
-    @include('footer')
     </body>
+    @include('footer')
 </html>

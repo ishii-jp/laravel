@@ -19,10 +19,10 @@
         <div class="row">
             <p>タイムライン</p>
         </div>
-        <p><a href="/tweet/create">ツイートする</a></p>
+        <p><a href="/tweet/create" class="btn btn-default active" role="button">ツイートする</a></p>
         <table class="table table-striped">
                 <tr>
-                    <th>投稿者　</th><th>タイトル　</th><th>本文　</th><th>投稿日時</th>
+                    <th>投稿者</th><th>タイトル</th><th>本文</th><th>投稿日時</th><th></th><th></th><th></th>
                 </tr>
                 @foreach ($tweets as $tweet)
                 <tr>
@@ -38,8 +38,8 @@
                     </td>
                     
                     <td>{{ $tweet->updated_at }}</td>
-                    <td><a href="/reply/{{ $tweet->id }}">返信</a></td>
-                    <td><a href="/reply/show/{{ $tweet->id }}">　この投稿への返信</a></td>
+                    <td><a href="/reply/{{ $tweet->id }}" class="btn btn-default active" role="button">返信</a></td>
+                    <td><a href="/reply/show/{{ $tweet->id }}" class="btn btn-default active" role="button">この投稿への返信</a></td>
     {{--                ここにこのツイートに対する返信があった場合はリンクを出力して、リンク先の画面で親ツイートと返信ツイートを全て出力します。--}}
     {{--                @php var_dump($tweet->user); @endphp--}}
                     <td>

@@ -11,7 +11,7 @@
 @section('title', $title)
 
 @section('content')
-    <div>
+    <div class="container">
         <div>
         @if(Session::has('msg'))
             <p class="errorMessage">メッセージ：{{ session('msg') }}</p>
@@ -19,7 +19,6 @@
         @if ($errors->has('exception_message'))
             <strong class="errorMessage">{{ $errors->first('exception_message') }}</strong><br>
         @endif
-        <h3>編集する</h3>
         {{ Form::open(['url' => "mypage/passwordStore"]) }}
             {{ Form::label('new_password', '現在のパスワード') }}
             {{ Form::password('new_password') }}<br>
@@ -33,12 +32,8 @@
             @if ($errors->has('password_confirmation'))
                 <strong class="errorMessage">{{ $errors->first('password_confirmation') }}</strong><br>
             @endif
-            {{ Form::submit() }}
+            {{ Form::submit('変更', ['class' => 'btn btn-success']) }}
         {{ Form::close() }}
         </div>
     </div>
-@endsection
-
-@section('footer')
-    <br>copyright ishii 2018
 @endsection
