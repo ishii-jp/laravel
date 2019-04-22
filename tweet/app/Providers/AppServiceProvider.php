@@ -18,11 +18,13 @@ class AppServiceProvider extends ServiceProvider
         // Schema::defaultStringLength(191);
         // laravelのログファイルにsqlのクエリーログをデバッグ用で出すようにします。
         # 商用環境以外だった場合、SQLログを出力する
-        if (config('app.env') !== 'production') {
-            DB::listen(function ($query) {
-                \Log::info("Query Time:{$query->time}s] $query->sql");
-            });
-        }
+        // XAMPPのmysqlでクエリーログ を出せるようにしたのでこっちはコメントアウトします。
+        
+        // if (config('app.env') !== 'production') {
+        //     DB::listen(function ($query) {
+        //         \Log::info("Query Time:{$query->time}s] $query->sql");
+        //     });
+        // }
 
     }
 
