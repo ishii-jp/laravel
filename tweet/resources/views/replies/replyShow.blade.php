@@ -9,7 +9,7 @@
 
 @section('content')
     <div class="container">
-        <table>
+        <table class="table table-striped">
             <tr>
                 <th>投稿者　</th><th>タイトル　</th><th>本文　</th><th>投稿日時</th>
             </tr>
@@ -20,8 +20,8 @@
                 <td>{{ $tweets->updated_at }}</td>
             </tr>
         </table>
-        <table>
-            <tr><th>{{ $tweets->user->name }}への返信↓</th></tr>
+        <table class="table table-striped">
+            <tr><th>{{ $tweets->user->name }}への返信↓</th><th></th><th></th><th></th></tr>
             @foreach($tweets->replies as $reply)
                 @if(empty($reply))
                     <p>返信はありません。</p>
