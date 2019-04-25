@@ -42,7 +42,8 @@ Route::middleware('auth')->group(function(){
         Route::get('show/{tweetId}', 'ReplyController@replyShow')->name('replyShow');
     });
     // いいね機能
-    Route::resource('like', 'LikeController', ['only' => ['store']]);
+    Route::post('like', 'LikeController@store')->name('likeStore');
+    Route::post('like/delete', 'LikeController@destroy')->name('likeDelete');
 });
 
 

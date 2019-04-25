@@ -42,9 +42,15 @@
                     <td><a href="/reply/show/{{ $tweet->id }}" class="btn btn-default active" role="button">この投稿への返信</a></td>
     {{--                ここにこのツイートに対する返信があった場合はリンクを出力して、リンク先の画面で親ツイートと返信ツイートを全て出力します。--}}
     {{--                @php var_dump($tweet->user); @endphp--}}
-                    <td>
-                        <button class="btn btn-success" id="like{{ $tweet->id }}" data-tweet_number="{{ $tweet->id }}" onClick='like_button($("#like{{ $tweet->id}}").data("tweet_number"))'>いいね！</button>
-                    </td>
+                    @if ($tweet->likes->isEmpty())
+                        <td>
+                            <button class="btn btn-success" id="like{{ $tweet->id }}" data-tweet_number="{{ $tweet->id }}" onClick='like_button($("#like{{ $tweet->id}}").data("tweet_number"))'>いいね！</button>
+                        </td>
+                    @else
+                        <td>
+                            <button class="btn btn-success" id="liked{{ $tweet->id }}" data-tweet_number="{{ $tweet->id }}" onClick='like_button($("#liked{{ $tweet->id}}").data("tweet_number"), "true")'>いいね済</button>
+                        </td>
+                    @endif
                 </tr>
                 @endforeach
         </table>

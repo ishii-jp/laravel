@@ -8,8 +8,17 @@ use App\Like;
 
 class LikeController extends Controller
 {
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $like = Like::create(['tweet_id' => $request->tweet_id, 'user_id' => Auth::user()->id, 'like' => $request->like]);
         return response()->json($like);
+    }
+
+    public function destroy(Request $request)
+    {
+        if ($request->like == 0){
+            $like = Like::where('user_id', Auth::user()->id)->where('tweet_id', $request->tweet_id)->delete();
+            return response()->json($like);
+        }
     }
 }
