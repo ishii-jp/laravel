@@ -21,4 +21,11 @@ class LikeController extends Controller
             return response()->json($like);
         }
     }
+
+    public function likeUserShow($tweetId)
+    {
+        $likeUsers = Like::where('tweet_id', $tweetId)->get();
+        // dd($likeUsers);
+        return view('likes.likeUserShow', ['likeUsers' => $likeUsers]);
+    }
 }

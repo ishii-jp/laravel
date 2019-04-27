@@ -52,7 +52,7 @@
                         </td>
                     @endif
                     <td>
-                        <p class="text-success">いいね数({{ $library->likeCount($tweet->id) }})</p>
+                        <a href="/like/userShow/{{ $tweet->id }}"><p class="text-success">いいね数({{ $library->likeCount($tweet->id) }})</p></a>
                     </td>
                 </tr>
                 @endforeach

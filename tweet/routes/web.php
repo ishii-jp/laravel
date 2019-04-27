@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function(){
     // いいね機能
     Route::post('like', 'LikeController@store')->name('likeStore');
     Route::post('like/delete', 'LikeController@destroy')->name('likeDelete');
+    Route::get('like/userShow/{tweetId}', 'LikeController@likeUserShow')->name('likeShow');
 });
 
 
