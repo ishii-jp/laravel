@@ -19,11 +19,19 @@ use App\Http\Requests\TweetRequest;
 class TweetsController extends Controller
 {
     public function index(){
+        // ログインしているユーザーのいいねを取得
+        $function = function ($query){
+            $query->where('user_id', Auth::user()->id);
+        };
+        
         // この書き方でforeachなどで回すと回った分だけクエリーが発生し負荷となる。
         // $tweets = Tweet::orderBy('updated_at', 'DESC')->get();
         // リレーションを用いてコレクションを取得する書き方(N+1問題を解決)
-        $tweets = Tweet::with(['user', 'tweetImages', 'replies', 'likes'])->orderBy('updated_at', 'DESC')->paginate(10);
-        return view('tweets.index', ['tweets' => $tweets]);
+        $param['tweets'] = Tweet::with(['user', 'tweetImages', 'replies', 'likes' => $function])->orderBy('updated_at', 'DESC')->paginate(10);
+        // いいね数をカウントするメソッドを使うためインスタンス化
+        $param['library'] = new Library;
+        
+        return view('tweets.index', $param);
     }
 
     public function create(Request $request)

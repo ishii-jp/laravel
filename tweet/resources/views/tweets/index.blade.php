@@ -22,7 +22,7 @@
         <p><a href="/tweet/create" class="btn btn-default active" role="button">ツイートする</a></p>
         <table class="table table-striped">
                 <tr>
-                    <th>投稿者</th><th>タイトル</th><th>本文</th><th>投稿日時</th><th></th><th></th><th></th>
+                    <th>投稿者</th><th>タイトル</th><th>本文</th><th>投稿日時</th><th></th><th></th><th></th><th></th>
                 </tr>
                 @foreach ($tweets as $tweet)
                 <tr>
@@ -51,6 +51,9 @@
                             <button class="btn btn-success" id="liked{{ $tweet->id }}" data-tweet_number="{{ $tweet->id }}" onClick='like_button($("#liked{{ $tweet->id}}").data("tweet_number"), "true")'>いいね済</button>
                         </td>
                     @endif
+                    <td>
+                        <p class="text-success">いいね数({{ $library->likeCount($tweet->id) }})</p>
+                    </td>
                 </tr>
                 @endforeach
         </table>
