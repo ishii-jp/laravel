@@ -42,9 +42,12 @@ Route::middleware('auth')->group(function(){
         Route::get('show/{tweetId}', 'ReplyController@replyShow')->name('replyShow');
     });
     // いいね機能
-    Route::post('like', 'LikeController@store')->name('likeStore');
-    Route::post('like/delete', 'LikeController@destroy')->name('likeDelete');
-    Route::get('like/userShow/{tweetId}', 'LikeController@likeUserShow')->name('likeShow');
+    Route::prefix('like')->group(function(){
+        Route::post('', 'LikeController@store')->name('likeStore');
+        Route::post('delete', 'LikeController@destroy')->name('likeDelete');
+        Route::get('userShow/{tweetId}', 'LikeController@likeUserShow')->name('likeUserShow');
+        Route::get('show', 'LikeController@show')->name('likeShow');
+    });
 });
 
 

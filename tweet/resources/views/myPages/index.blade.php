@@ -19,6 +19,7 @@
             <p>{{ $user->name }}さんこんにちは。</p>
         </div>
         <p><a href="/tweet/{{ $user->id }}" class="btn btn-default active" role="button">自分の投稿一覧</a></p>
+        <p><a href="/like/show" class="btn btn-default active" role="button">いいねした投稿</a></p>
         <p><a href="/mypage/userinfo/" class="btn btn-default active" role="button">ユーザー情報</a></p>
     </div>
 @endsection
