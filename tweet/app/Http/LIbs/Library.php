@@ -17,10 +17,11 @@ class Library
     }
 
     // いいね数をカウントします
-    static function likeCount($tweet_id)
-    {
-        $likeCount = Like::where('tweet_id', $tweet_id)->count();
-        return $likeCount;
-    }
+    // N+1問題が発生してしまったので他の方法でいいね数をカウントする様にしました。
+    // static function likeCount($tweet_id)
+    // {
+    //     $likeCount = Like::where('tweet_id', $tweet_id)->count();
+    //     return $likeCount;
+    // }
 
 }

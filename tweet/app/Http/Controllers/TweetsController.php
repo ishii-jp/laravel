@@ -27,9 +27,7 @@ class TweetsController extends Controller
         // この書き方でforeachなどで回すと回った分だけクエリーが発生し負荷となる。
         // $tweets = Tweet::orderBy('updated_at', 'DESC')->get();
         // リレーションを用いてコレクションを取得する書き方(N+1問題を解決)
-        $param['tweets'] = Tweet::with(['user', 'tweetImages', 'replies', 'likes' => $function])->orderBy('updated_at', 'DESC')->paginate(10);
-        // いいね数をカウントするメソッドを使うためインスタンス化
-        $param['library'] = new Library;
+        $param['tweets'] = Tweet::with(['user', 'tweetImages', 'replies', 'likes' => $function])->orderBy('updated_at', 'DESC')->withCount('likes')->paginate(10);
         
         return view('tweets.index', $param);
     }
