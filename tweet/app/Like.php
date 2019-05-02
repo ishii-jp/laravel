@@ -15,4 +15,14 @@ class Like extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function scopeWhereTweetId($query, $tweetId)
+    {
+        return $query->where('tweet_id', $tweetId);
+    }
+
+    public function scopeWhereUserId($query, $userId)
+    {
+        return $query->where('user_id', $userId);
+    }
 }

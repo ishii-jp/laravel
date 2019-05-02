@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Like;
+use App\tweet;
 
 class LikeController extends Controller
 {
@@ -17,19 +18,24 @@ class LikeController extends Controller
     public function destroy(Request $request)
     {
         if ($request->like == 0){
-            $like = Like::where('user_id', Auth::user()->id)->where('tweet_id', $request->tweet_id)->delete();
+            $like = Like::whereUserId(Auth::user()->id)->whereTweetId($request->tweet_id)->delete();
             return response()->json($like);
         }
     }
 
     public function show()
     {
-        $likes = Like::where('user_id', Auth::user()->id)->orderBy('updated_at', 'DESC')->get();
+        $likes = Like::WhereUserId(Auth::user()->id)->orderBy('updated_at', 'DESC')->get();
         return view('likes.show', ['likes' => $likes]);
     }
     public function likeUserShow($tweetId)
     {
-        $likeUsers = Like::where('tweet_id', $tweetId)->get();
+        // $likeUsers = Like::where('tweet_id', $tweetId)->get();
+        // クエリースコープを用いた記述の仕方
+        // $likeUsers = Like::WhereTweetId($tweetId)->get();
+
+        $likeUsers = Tweet::with('likes.user')->find($tweetId);
+        // dd($likeUsers);
         return view('likes.likeUserShow', ['likeUsers' => $likeUsers]);
     }
 }
