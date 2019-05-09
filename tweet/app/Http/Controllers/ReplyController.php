@@ -43,7 +43,9 @@ class ReplyController extends Controller
 
     public function replyShow($tweetId)
     {
-        $tweets = Tweet::with(['replies', 'user'])->find($tweetId);
+        // $tweets = Tweet::with(['replies', 'user'])->find($tweetId);
+        // N+1問題を解決するイエーガロードの書き方。
+        $tweets = Tweet::with(['replies.user'])->find($tweetId);
         return view('replies.replyShow', ['tweets' => $tweets]);
     }
 }

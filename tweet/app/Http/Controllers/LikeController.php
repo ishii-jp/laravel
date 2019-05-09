@@ -25,7 +25,10 @@ class LikeController extends Controller
 
     public function show()
     {
-        $likes = Like::WhereUserId(Auth::user()->id)->orderBy('updated_at', 'DESC')->get();
+        // $likes = Like::WhereUserId(Auth::user()->id)->orderBy('updated_at', 'DESC')->get();
+        // N+1問題解決した記述
+        $likes = Like::with('tweet.user')->WhereUserId(Auth::user()->id)->orderBy('updated_at', 'DESC')->get();
+        // dd($likes);
         return view('likes.show', ['likes' => $likes]);
     }
     public function likeUserShow($tweetId)
