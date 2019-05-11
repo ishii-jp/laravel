@@ -1,7 +1,7 @@
 <table class="table table-striped">
     <tr><td><span>名前</span></td><td>{{ $user->name }}</td></tr>
     <tr><td><span>登録メールアドレス</span></td><td>{{ $user->email }}</td></tr>
-    <tr><th>自己紹介</th><td>{{ isset($user->userInfo->profile)? $user->userInfo->profile : '' }}</td></tr>
+    <tr><th>自己紹介</th><td>{!! isset($user->userInfo->profile)? nl2br(e($user->userInfo->profile)) : '' !!}</td></tr>
     <tr>
     <th>生年月日</th>
         @isset($user->userInfo->year)
