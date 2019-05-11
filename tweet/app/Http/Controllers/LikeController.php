@@ -28,7 +28,6 @@ class LikeController extends Controller
         // $likes = Like::WhereUserId(Auth::user()->id)->orderBy('updated_at', 'DESC')->get();
         // N+1問題解決した記述
         $likes = Like::with('tweet.user')->WhereUserId(Auth::user()->id)->orderBy('updated_at', 'DESC')->get();
-        // dd($likes);
         return view('likes.show', ['likes' => $likes]);
     }
     public function likeUserShow($tweetId)
@@ -38,7 +37,6 @@ class LikeController extends Controller
         // $likeUsers = Like::WhereTweetId($tweetId)->get();
 
         $likeUsers = Tweet::with('likes.user')->find($tweetId);
-        // dd($likeUsers);
         return view('likes.likeUserShow', ['likeUsers' => $likeUsers]);
     }
 }

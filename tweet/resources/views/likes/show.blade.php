@@ -21,7 +21,7 @@
             @foreach ($likes as $like)
             <tr>
                 <td>{{ $number }}</td>
-                <td><a href="/mypage/profile/{{ $like->user_id }}">{{ $like->tweet->user->name }}</a></td>
+                <td><a href="/mypage/profile/{{ $like->tweet->user->id }}">{{ $like->tweet->user->name }}</a></td>
                 <td>{{ $like->tweet->text }}</td>
             </tr>
             @php $number++; @endphp
