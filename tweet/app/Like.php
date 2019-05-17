@@ -25,4 +25,15 @@ class Like extends Model
     {
         return $query->where('user_id', $userId);
     }
+
+    static function likeCreate($tweetId, $userId, $like)
+    {
+        $like = Like::create(['tweet_id' => $tweetId, 'user_id' => $userId, 'like' => $like]);
+        return $like;
+    }
+
+    static function likeDelete($user, $tweetId)
+    {
+        Like::whereUserId($user)->whereTweetId($tweetId)->delete();
+    }
 }

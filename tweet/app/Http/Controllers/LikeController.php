@@ -11,16 +11,22 @@ class LikeController extends Controller
 {
     public function store(Request $request)
     {
-        $like = Like::create(['tweet_id' => $request->tweet_id, 'user_id' => Auth::user()->id, 'like' => $request->like]);
-        return response()->json($like);
-    }
+        // ログインユーザー情報を取得
+        $userId = Auth::user()->id;
+        // いいねされたツイートIDを取得
+        $tweetId = $request->tweet_id;
+        // いいねを押したツイートをすでにいいねしているか判定
+        $userLike = Like::whereUserId($userId)->whereTweetId($tweetId)->first();
 
-    public function destroy(Request $request)
-    {
-        if ($request->like == 0){
-            $like = Like::whereUserId(Auth::user()->id)->whereTweetId($request->tweet_id)->delete();
-            return response()->json($like);
+        if (empty($userLike)){
+            // いいねを登録処理
+            $like = Like::likeCreate($tweetId, $userId, $request->like);
+        } else {
+            // いいねを削除する処理
+            $like = Like::likeDelete($userId, $tweetId);
         }
+
+        return response()->json($like);
     }
 
     public function show()
