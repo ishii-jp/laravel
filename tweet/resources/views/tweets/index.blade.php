@@ -44,15 +44,15 @@
     {{--                @php var_dump($tweet->user); @endphp--}}
                     @if ($tweet->likes->isEmpty())
                         <td>
-                            <button class="btn btn-success" id="like{{ $tweet->id }}" data-tweet_number="{{ $tweet->id }}" onClick='like_button($("#like{{ $tweet->id}}").data("tweet_number"))'>いいね！</button>
+                            <button class="btn btn-success" id="like{{ $tweet->id }}" data-tweet_number="{{ $tweet->id }}">いいね！</button>
                         </td>
                     @else
                         <td>
-                            <button class="btn btn-success" id="liked{{ $tweet->id }}" data-tweet_number="{{ $tweet->id }}" onClick='like_button($("#liked{{ $tweet->id}}").data("tweet_number"), "true")'>いいね済</button>
+                            <button class="btn btn-success" id="liked{{ $tweet->id }}" data-tweet_number="{{ $tweet->id }}">いいね済</button>
                         </td>
                     @endif
                     <td>
-                        <a href="/like/userShow/{{ $tweet->id }}"><p class="text-success">いいね数{{ $tweet->likes_count }}</p></a>
+                        <a href="/like/userShow/{{ $tweet->id }}"><p class="text-success" id="likeCount">いいね数{{ $tweet->likes_count }}</p></a>
                     </td>
                 </tr>
                 @endforeach
@@ -73,10 +73,5 @@
         </table>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="{{ asset('js/like.js') }}"></script>
-        <!-- <script>
-            $('.like').on('click', function(){
-                like_button($('.like').data("tweet_number"));
-            });
-        </script> -->
     </div>
 @endsection
