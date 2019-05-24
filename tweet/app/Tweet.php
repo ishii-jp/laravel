@@ -26,4 +26,10 @@ class Tweet extends Model
     public function likes(){
         return $this->hasMany(Like::class);
     }
+
+    static function likesRanking()
+    {
+        $likesCount = Tweet::with(['likes', 'user'])->withCount('likes')->orderBy('likes_count', 'DESC')->limit(5)->get();
+        return $likesCount;
+    }
 }

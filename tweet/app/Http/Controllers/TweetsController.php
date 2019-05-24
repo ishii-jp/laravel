@@ -30,7 +30,7 @@ class TweetsController extends Controller
         $param['tweets'] = Tweet::with(['user', 'tweetImages', 'replies', 'likes' => $function])->orderBy('updated_at', 'DESC')->withCount('likes')->paginate(10);
         // いいね数順のランキングを取得
         // $param['likesRanking'] = DB::table('likes')->select(DB::raw('count(*) as user_count, tweet_id'))->groupBy('tweet_id')->orderBy('user_count', 'DESC')->limit(5)->get();
-        $param['likesRanking'] = Tweet::with(['likes', 'user'])->withCount('likes')->orderBy('likes_count', 'DESC')->limit(5)->get();
+        $param['likesRanking'] = Tweet::likesRanking();
         
         return view('tweets.index', $param);
     }
