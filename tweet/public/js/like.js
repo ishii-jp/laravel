@@ -41,13 +41,15 @@ $(function(){
             dataType: "json",
             url: "/like",
             data: {'tweet_id': like_id, 'like': 1},
-        }).done(function(){
-            console.log('SUCCESS');
-
+        }).done(function(data){
+            var likeCount = 'likeCount' + like_id;
+            // console.log('SUCCESS');
+            // console.log(data);
+            // console.log(document.getElementById(likeCount));
+            // console.log(likeCount);
+            // console.log($this.data);
             // いいねの総数を表示
-            // $this.children('p').html(data);
-            console.log($this.getElementById(likeCount));
-            // error.log($this.children('p').html(data));
+            document.getElementById(likeCount).innerHTML = 'いいね数' + data;
         }).fail(function(error){
             console.log(error);
         });

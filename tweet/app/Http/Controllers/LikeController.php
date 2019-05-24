@@ -19,14 +19,16 @@ class LikeController extends Controller
         $userLike = Like::whereUserId($userId)->whereTweetId($tweetId)->first();
 
         if (empty($userLike)){
-            // いいねを登録処理
-            $like = Like::likeCreate($tweetId, $userId, $request->like);
+            // いいね登録処理
+            Like::likeCreate($tweetId, $userId, $request->like);
         } else {
-            // いいねを削除する処理
+            // いいね削除する処理
             $like = Like::likeDelete($userId, $tweetId);
         }
+        // いいね数をカウント
+        $likesCount = Like::likesCount($tweetId);
 
-        return response()->json($like);
+        return response()->json($likesCount);
     }
 
     public function show()

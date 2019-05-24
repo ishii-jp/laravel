@@ -36,4 +36,10 @@ class Like extends Model
     {
         Like::whereUserId($user)->whereTweetId($tweetId)->delete();
     }
+
+    static function likesCount($tweetId)
+    {
+        $likesCount = Like::whereTweetId($tweetId)->count();
+        return $likesCount;
+    }
 }
