@@ -21,14 +21,16 @@ class LikeController extends Controller
         if (empty($userLike)){
             // いいね登録処理
             Like::likeCreate($tweetId, $userId, $request->like);
+            $ret['result'] = 'create';
         } else {
             // いいね削除する処理
             $like = Like::likeDelete($userId, $tweetId);
+            $ret['result'] = 'delete';
         }
         // いいね数をカウント
-        $likesCount = Like::likesCount($tweetId);
+        $ret['likeCount'] = Like::likesCount($tweetId);
 
-        return response()->json($likesCount);
+        return response()->json($ret);
     }
 
     public function show()

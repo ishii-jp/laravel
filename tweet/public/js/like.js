@@ -45,11 +45,13 @@ $(function(){
             var likeCount = 'likeCount' + like_id;
             // console.log('SUCCESS');
             // console.log(data);
-            // console.log(document.getElementById(likeCount));
-            // console.log(likeCount);
-            // console.log($this.data);
+            if (data['result'] == 'create'){
+                document.getElementById($this.attr('id')).innerHTML = 'いいね済';
+            } else {
+                document.getElementById($this.attr('id')).innerHTML = 'いいね!';
+            }
             // いいねの総数を表示
-            document.getElementById(likeCount).innerHTML = 'いいね数' + data;
+            document.getElementById(likeCount).innerHTML = 'いいね数' + data['likeCount'];
         }).fail(function(error){
             console.log(error);
         });
