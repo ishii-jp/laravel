@@ -35,23 +35,22 @@ $(function(){
         var $this = $(this);
         //カスタム属性に格納されたID取得
         like_id = $this.data('tweet_number');
-        // console.log(like_id);
         $.ajax({
             method: "POST",
             dataType: "json",
             url: "/like",
             data: {'tweet_id': like_id, 'like': 1},
         }).done(function(data){
-            var likeCount = 'likeCount' + like_id;
-            // console.log('SUCCESS');
             // console.log(data);
             if (data['result'] == 'create'){
-                document.getElementById($this.attr('id')).innerHTML = 'いいね済';
+                var value = 'いいね済';
             } else {
-                document.getElementById($this.attr('id')).innerHTML = 'いいね!';
+                var value = 'いいね!';
             }
+            // ボタンのhtmlを修正
+            document.getElementById($this.attr('id')).innerHTML = value;
             // いいねの総数を表示
-            document.getElementById(likeCount).innerHTML = 'いいね数' + data['likeCount'];
+            document.getElementById('likeCount' + like_id).innerHTML = 'いいね数' + data['likeCount'];
         }).fail(function(error){
             console.log(error);
         });
