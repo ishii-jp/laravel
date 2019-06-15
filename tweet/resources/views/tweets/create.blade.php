@@ -16,9 +16,9 @@
             <p class="errorMessage">※入力に不備がありますのでご確認ください。</p>
         @endif
         <div>
-        @if ($errors->has('exception_message'))
-            <strong class="errorMessage">{{ $errors->first('exception_message') }}</strong><br>
-        @endif
+            @if ($errors->has('exception_message'))
+                <strong class="errorMessage">{{ $errors->first('exception_message') }}</strong><br>
+            @endif
             @if (Request::path() == 'tweet/create')
                 {{ Form::open(['url' => '/tweet', 'method' => 'post', 'files' => true]) }}
             @else
