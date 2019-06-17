@@ -68,14 +68,15 @@ class LoginController extends Controller
 
         // バリデーションのルールを定義
         $rules = [
-            'name' => 'required|string',
+            'name' => 'required|string|max:10',
             'password' => 'required|string'
         ];
 
         // エラーメッセージを定義
         $messages = [
-            'name.requird' => '名前を入力して下さい',
+            'name.required' => '名前を入力して下さい',
             'name.string' => '名前に数字や記号は使えません。',
+            'name.max' => '名前は10文字以内で入力して下さい。',
             'password.required' => 'パスワードを入力して下さい。',
             'password.string' => 'パスワードに数字や記号は使えません。'
         ];
