@@ -61,6 +61,8 @@ Route::get('/logout', function(){
     return redirect('/');
 });
 
+Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
+Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 
 // resourceで記述するとgetで同じルーティングを書いても反映されないっぽい？
 // Route::get('tweet', 'TweetsController@index')->middleware('auth');

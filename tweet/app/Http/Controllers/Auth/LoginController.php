@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Events\Logined;
 use Validator;
+use Socialite;
 
 class LoginController extends Controller
 {
@@ -30,6 +31,32 @@ class LoginController extends Controller
      */
     // protected $redirectTo = '/home';
     protected $redirectTo = '/tweet';
+
+    /**
+     * facebookの認証ページヘユーザーをリダイレクト
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    /**
+     * facebookからユーザー情報を取得
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('facebook')->user();
+        
+        if ($user){
+            // dd($user);
+            return redirect('/');
+        }
+        // $user->token;
+    }
 
     public function username(){
         return 'name';

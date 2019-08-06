@@ -43,6 +43,9 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @guest
+                            <li>
+                                <button type="submit" class="btn btn-primary" onclick="location.href='/login/facebook'">FaceBookでログイン</button>
+                            </li>
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
