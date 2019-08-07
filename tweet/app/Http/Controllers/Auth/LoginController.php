@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Events\Logined;
 use Validator;
 use Socialite;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -49,13 +51,29 @@ class LoginController extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('facebook')->user();
-        
-        if ($user){
-            // dd($user);
-            return redirect('/');
+        // $facebookUser = Socialite::driver('facebook')->user();
+
+        $facebookUser = Socialite::driver('facebook')->stateless()->user();
+        // email が合致するユーザーを取得
+        $user = User::where('email', $facebookUser->email)->first();
+        // 見つからなければ新しくユーザーを作成
+        if ($user == null) {
+            $user = $this->createUserByfacebook($facebookUser);
         }
+        // ログイン処理
+        Auth::login($user);
+        return redirect()->route('home');
         // $user->token;
+    }
+
+    public function createUserByfacebook($facebookUser)
+    {
+        $user = User::create([
+            'name'     => $facebookUser->name,
+            'email'    => $facebookUser->email,
+            'password' => \Hash::make(uniqid()),
+        ]);
+        return $user;
     }
 
     public function username(){
