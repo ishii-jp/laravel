@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use App\Events\Logined;
 use Validator;
 use Socialite;
 use App\User;
@@ -94,14 +93,12 @@ class LoginController extends Controller
      * @param Request $request
      * @param $user
      */
-    protected function authenticated(Request $request, $user)
-    {
-        // ログインイベントを起動させ、最終ログイン日時を入力する
-        // event(new Logined());
-        // なぜかイベントリスナーを使ったやり方だと値がテーブルに格納されないのでコントローラに直で書いたら最終ログイン日時が入力できました。
-        $user->last_login_at = now();
-        $user->save();
-    }
+    // イベントリスナーの発火で最終ログイン日時を登録する処理に変更したので、こちらはコメントアウトします。
+    // protected function authenticated(Request $request, $user)
+    // {
+    //     $user->last_login_at = now();
+    //     $user->save();
+    // }
 
     public function login(Request $request)
     {
