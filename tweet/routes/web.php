@@ -21,9 +21,12 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::middleware('auth')->group(function(){
     // ツイート機能
     Route::resource('tweet', 'TweetsController');
+    // ツイート検索機能
+    Route::post('tweet', 'TweetsController@index')->name('tweetSearch');
+
     // マイページ機能
     Route::prefix('mypage')->group(function(){
-        Route::get('', 'MyPageController@index')->name('myPage');
+        Route::get('/', 'MyPageController@index')->name('myPage');
         Route::get('userinfo', 'MyPageController@userInfo');
         Route::get('edit', 'MyPageController@edit')->name('myPageEdit');
         Route::post('store', 'MyPageController@store');
@@ -43,12 +46,11 @@ Route::middleware('auth')->group(function(){
     });
     // いいね機能
     Route::prefix('like')->group(function(){
-        Route::post('', 'LikeController@store')->name('likeStore');
+        Route::post('/', 'LikeController@store')->name('likeStore');
         Route::get('userShow/{tweetId}', 'LikeController@likeUserShow')->name('likeUserShow');
         Route::get('show', 'LikeController@show')->name('likeShow');
     });
 });
-
 
 
 // ユーザー認証のルーティング

@@ -18,20 +18,26 @@ use App\Http\Requests\TweetRequest;
 
 class TweetsController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         // ログインしているユーザーのいいねを取得
         $function = function ($query){
             $query->where('user_id', Auth::user()->id);
         };
-        
-        // この書き方でforeachなどで回すと回った分だけクエリーが発生し負荷となる。
-        // $tweets = Tweet::orderBy('updated_at', 'DESC')->get();
-        // リレーションを用いてコレクションを取得する書き方(N+1問題を解決)
-        $param['tweets'] = Tweet::with(['user', 'tweetImages', 'replies', 'likes' => $function])->orderBy('updated_at', 'DESC')->withCount('likes')->paginate(10);
+
         // いいね数順のランキングを取得
         // $param['likesRanking'] = DB::table('likes')->select(DB::raw('count(*) as user_count, tweet_id'))->groupBy('tweet_id')->orderBy('user_count', 'DESC')->limit(5)->get();
         $param['likesRanking'] = Tweet::likesRanking();
-        
+
+        // ツイート検索が行われたら結果を一緒に返す
+        if(!empty($request->searchText)){
+            $param['searchText'] = $request->searchText;
+            $param['tweets'] = $this->search($function, $param['searchText']);
+            // dd($param);
+        } else {
+            // トップ画面で必要な情報を全て取得
+            $param['tweets'] = Tweet::with(['user', 'tweetImages', 'replies', 'likes' => $function])->orderBy('updated_at', 'DESC')->withCount('likes')->paginate(10);
+        }
+
         return view('tweets.index', $param);
     }
 
@@ -111,23 +117,9 @@ class TweetsController extends Controller
         
         return redirect("/tweet/$user_id");
     }
+
+    public function search($function, $searchText)
+    {
+        return Tweet::tweetSearch($function, $searchText);
+    }
 }
-
-
-
-
-// public function store(TweetImageRequest $request)
-//     {
-//         $user = Auth::user();
-//         $image = $request->image;
-//         $createArr =['user_id' => $user->id, 'title' => $request->title, 'text' => $request->text];
-
-//         if (isset($image)){
-//             $filename = $image->store('public/avatar');
-//             $imageArr = ['image' => basename($filename)];
-//             $createArr = array_merge($createArr, $imageArr);
-//         }
-
-//         Tweet::create($createArr);
-//         return view('tweets.store', ['user' => $user]);
-//     }

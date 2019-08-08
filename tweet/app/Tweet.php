@@ -29,7 +29,13 @@ class Tweet extends Model
 
     static function likesRanking()
     {
-        $likesCount = Tweet::with(['likes', 'user'])->withCount('likes')->orderBy('likes_count', 'DESC')->limit(5)->get();
+        $likesCount = self::with(['likes', 'user'])->withCount('likes')->orderBy('likes_count', 'DESC')->limit(5)->get();
         return $likesCount;
+    }
+
+    static function tweetSearch($function ,$text)
+    {
+        $result = self::with(['user', 'tweetImages', 'replies', 'likes' => $function])->where('text', 'like', "%{$text}%")->orderBy('updated_at', 'DESC')->withCount('likes')->paginate(10);
+        return $result;
     }
 }
