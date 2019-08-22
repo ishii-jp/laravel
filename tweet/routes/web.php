@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function(){
     // ツイート機能
     Route::resource('tweet', 'TweetsController');
     // ツイート検索機能
-    Route::post('tweet', 'TweetsController@index')->name('tweetSearch');
+    Route::post('tweet/search', 'TweetsController@index')->name('tweetSearch');
 
     // マイページ機能
     Route::prefix('mypage')->group(function(){

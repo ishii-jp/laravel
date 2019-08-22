@@ -19,7 +19,7 @@
         <div class="row">
             <p>タイムライン</p>
         </div>
-        {{ Form::open(['url' => "/tweet", 'method' => 'post']) }}
+        {{ Form::open(['url' => "tweet/search", 'method' => 'post']) }}
             {{ Form::label('searchText', 'ツイート検索') }}
             {{ Form::text('searchText', old('title')) }}
             {{ Form::submit('検索') }}
