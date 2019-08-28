@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTitle extends Migration
+class RenameTweetTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,7 @@ class AddTitle extends Migration
      */
     public function up()
     {
-        Schema::table('tweet', function (Blueprint $table) {
-            $table->string('title', 20)->after('id')->nullable();
-        });
+        Schema::rename('tweet', 'tweets');
     }
 
     /**
@@ -25,8 +23,6 @@ class AddTitle extends Migration
      */
     public function down()
     {
-        Schema::table('tweet', function (Blueprint $table) {
-            $table->dropColumn('title');
-        });
+        Schema::rename('tweets', 'tweet');
     }
 }

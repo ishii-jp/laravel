@@ -52,7 +52,8 @@ return [
             'charset' => 'utf8',
             'collation' => 'utf8_general_ci',
             'prefix' => '',
-            'strict' => true,
+            // 'strict' => true,
+            'strict' => false,
             'engine' => null,
         ],
 
